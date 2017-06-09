@@ -1,0 +1,132 @@
+body {
+    background: #d0d0d0;
+    font-family: sans-serif;
+}
+
+#whole_dev {
+    overflow: auto;
+    align-content: center;
+    margin: auto;
+}
+
+#main_title {
+    color: indigo;
+    text-align: center;
+    border: solid 2px gray;
+    padding: 2px;
+    text-shadow: 1px 1px 5px black;
+    margin: auto;
+    width: 600px;
+    margin-bottom: 15px;
+}
+
+.dev_container {
+    border: solid 1px gray;
+    padding: 10px;
+    height: 500px;
+    background: #e8e8e8;
+}
+
+#left_dev {
+    width: 74%;
+    float: left;
+    margin: auto;
+    min-width: 400px;
+}
+
+#right_div {
+    overflow: auto;
+    width: 22%;
+    float: right;
+    min-width: 300px;
+    min-height: 500px;
+}
+
+#right_div, #left_dev {
+    height: 100%;
+}
+
+#property_title {
+    font-family: "Britannic Bold";
+    text-align: center;
+    font-weight: bold;
+}
+
+#right_div .property_div {
+    overflow: auto;
+
+}
+
+#right_div ul {
+    list-style: none;
+    padding: 0;
+}
+
+#right_div select {
+    position: relative;
+    width: 100%;
+    padding: 1px;
+}
+
+#right_div .property_edittext {
+    float: right;
+    width: 60%;
+    position: relative;
+    text-align: center;
+}
+
+#right_div .property_label {
+    float: left;
+    width: 38%;
+    position: relative;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+#right_div .property_label li {
+    margin-bottom: 13px;
+}
+
+.text_style_ul li label {
+    font-size: 15px;
+}
+
+.default {
+    color: gray;
+    font-weight: bold;
+}
+
+select {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#export_xml {
+    margin-left: 120px;
+}
+
+td {
+    padding: 5px
+}
+
+#right_div table {
+    width: 100%;
+}
+
+#right_div table tr td label, #right_div table tr td input, #right_div table tr td select {
+    width: 100%;
+}
+
+
+
+
+
