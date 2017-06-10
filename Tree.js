@@ -10,12 +10,13 @@ function loadTree() {
         this.child = new Array();
     }
 
-    function Tree(rootView) {
-        this.root = new Node(rootView);
+    function Tree() {
+        this.root = [];
+        // this.root = new Node(rootView);
 
 
-        this.removeView = function (viewId) {
-            removeViewId(this.root, -1, undefined, viewId);
+        this.removeView = function (activityId, viewId) {
+            removeViewId(this.root[activityId], -1, undefined, viewId);
         };
 
         var removeViewId = function (node, nodeIdx, parentNode, viewId) {
@@ -36,8 +37,8 @@ function loadTree() {
         };
 
 
-        this.addChild = function (parentId, viewId, upperId) {
-            add(this.root, parentId, viewId, upperId);
+        this.addChild = function (activityId, parentId, viewId, upperId) {
+            add(this.root[activityId], parentId, viewId, upperId);
         };
 
 
@@ -63,9 +64,9 @@ function loadTree() {
             }
         };
 
-        this.printTree = function () {
+        this.printTree = function (activtyId) {
             //prinTree(this.root);
-            return getXmlFileString(this.root);
+            return getXmlFileString(this.root[activtyId]);
         };
 
         var prinTree = function (node) {
@@ -112,11 +113,13 @@ function loadTree() {
      mXml.printTree();
      */
 
-    var root_id = window.utiles.generateId("LinearLayout");
-    var WorkspaceDev = window.ProjectManager.getCurrentActivy();   //this is the div where we drag and drop the element in it
-    WorkspaceDev._id=root_id;
-    window.utiles.objectToXml(root_id);
-    window.tree = window.tree || new Tree(root_id);
+
+    // window.utiles.objectToXml(root_id);
+    window.tree = window.tree || new Tree();
+    window.NodeObj = window.NodeObj || Node;
+
+     var WorkspaceDev = window.ProjectManager.getCurrentActivy();   //this is the div where we drag and drop the element in it
+
 };
 
 window.addEventListener('load', loadTree, false);

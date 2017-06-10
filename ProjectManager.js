@@ -30,7 +30,17 @@
         document.getElementById('mobielDev').appendChild(layout);
         hideCurrentActivity();
         createOptionItem(file);
+        handleXMLTree(layout);
+
         return currentActivityName=layout;
+    }
+
+    function handleXMLTree(WorkspaceDev) {
+        var root_id = window.utiles.generateId("LinearLayout");
+        window.utiles.generateGroupLayout('match_parent', 'match_parent', root_id, 'LinearLayout'); // generate XML of grouplayout
+
+        WorkspaceDev._id = root_id;
+        window.tree.root[WorkspaceDev.id] = new window.NodeObj(WorkspaceDev._id);
     }
 
     function getCurrentActivy() {

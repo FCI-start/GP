@@ -186,8 +186,9 @@ var DragDrop =
            var HandelXml=function ()
             {
                // console.log(parent._id);
-                window.tree.addChild(parent._id,myId);
-                fileXml = window.tree.printTree();
+                var activity_id=window.ProjectManager.getCurrentActivy().id;
+                window.tree.addChild(activity_id,parent._id,myId);
+                fileXml = window.tree.printTree(activity_id,parent._id);
                 console.log(fileXml)
             }();
 

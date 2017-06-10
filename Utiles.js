@@ -108,6 +108,13 @@
         }
     }
 
+    function generateGroupLayout(width, heigh, id, type) {
+        this.arr[id] = {};
+        this.arr[id].type = type;
+        this.arr[id].id = "@+id/" + id;
+        this.arr[id].layout_width = width;
+        this.arr[id].layout_height = heigh;
+    }
 
     function setPropertiestoObject(id, type) {
         //  Assign Basic class
@@ -129,11 +136,10 @@
         var onClick = document.getElementById("onClick").value;
 
         idProperty.value = id;
-         // if(!arr.hasOwnProperty(id)) {
-         //     generateDefault();
-         // }
-         //     previewInProperties();
-
+        // if(!arr.hasOwnProperty(id)) {
+        //     generateDefault();
+        // }
+        //     previewInProperties();
 
 
         this.arr[id] = {};
@@ -177,6 +183,7 @@
     window.utiles.generateId = generateId;
     window.utiles.setPropertiestoObject = setPropertiestoObject;
     window.utiles.objectToXml = objectToXml;
+    window.utiles.generateGroupLayout = generateGroupLayout;
 
 })();
 
