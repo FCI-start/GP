@@ -107,7 +107,7 @@ var fun = function () {
                 self.element.param = "RIGHT";
             }
             else {
-               self.element.classList.add('draggable');
+                self.element.classList.add('draggable');
                 self.element.param = "MOVE";
             }
 
@@ -117,6 +117,7 @@ var fun = function () {
         this.element.addEventListener('mousedown', move, false);
         this.element.addEventListener('mousemove', moveover, false);
     }
-    window.ResizableElemnt=ResizableElemnt;
+
+    window.ResizableElemnt = ResizableElemnt;
 }();
 

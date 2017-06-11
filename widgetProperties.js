@@ -17,7 +17,7 @@
     var textView = document.getElementById('textView');
     var editText = document.getElementById('editText');
 
-    function addWidgetEventListner(draggedItem){
+    function addWidgetEventListner(draggedItem) {
         if (draggedItem) {
             draggedItem.addEventListener('click', getGeneralXml, false);
         }
@@ -32,7 +32,7 @@
     function selectItem(HtmlObj) {
         window.curruntlyHtmlObjectSelected = HtmlObj;
         updatePropertiesView(HtmlObj._innerText);
-        window.utiles.setPropertiestoObject(HtmlObj._id,HtmlObj._innerText);
+        window.utiles.setPropertiestoObject(HtmlObj._id, HtmlObj._innerText);
         var xmlObject = window.utiles.arr[HtmlObj._id];
         console.log(utiles.objectToXml(xmlObject));
     }
@@ -121,8 +121,8 @@
         hide(editTextSection);
     }
 
-    window.properties =  window.properties || {};
-    window.properties.draggedItem =  draggedItem;
+    window.properties = window.properties || {};
+    window.properties.draggedItem = draggedItem;
     window.properties.addWidgetEventListner = addWidgetEventListner;
     window.properties.selectItem = selectItem;
 })();

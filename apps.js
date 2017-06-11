@@ -6,7 +6,7 @@ var DragDrop =
     self: this,
     direct: null,
     selected: this,
-    WorkspaceDev:null,
+    WorkspaceDev: null,
 
     init: function (Element) {
 
@@ -68,67 +68,66 @@ var DragDrop =
         document.addEventListener('mouseup', DragDrop.dropme, false);
         //document.addEventListener('mouseout',DragDrop.dropme,false);
     },
-    dragme: function (e)
-    {
+    dragme: function (e) {
         DragDrop.selected.className = 'draggable';
 
 
         //if (DragDrop.direct == "Move" || DragDrop.direct == undefined) {
 
-            //do computation to make mouse in the place where it press during moving
-            DragDrop.selected.style.left = DragDrop.selected.beginningPositionLeft + e.clientX - DragDrop.selected.mouseX + 'px';
-            DragDrop.selected.style.top = DragDrop.selected.beginningPositionTop + e.clientY - DragDrop.selected.mouseY + 'px';
-            DragDrop.selected.style.cursor = "move";
+        //do computation to make mouse in the place where it press during moving
+        DragDrop.selected.style.left = DragDrop.selected.beginningPositionLeft + e.clientX - DragDrop.selected.mouseX + 'px';
+        DragDrop.selected.style.top = DragDrop.selected.beginningPositionTop + e.clientY - DragDrop.selected.mouseY + 'px';
+        DragDrop.selected.style.cursor = "move";
         //}
         /*
-        else {
-            if (DragDrop.direct == "TopLeft") {
-                DragDrop.self.style.width = DragDrop.self.originalX - e.clientX + DragDrop.self.originalWidth + "px";
-                DragDrop.self.style.height = DragDrop.self.originalY - e.clientY + DragDrop.self.originalHeight + "px";
-                DragDrop.self.style.top = e.clientY + "px";
-                DragDrop.self.style.left = e.clientX + "px";
+         else {
+         if (DragDrop.direct == "TopLeft") {
+         DragDrop.self.style.width = DragDrop.self.originalX - e.clientX + DragDrop.self.originalWidth + "px";
+         DragDrop.self.style.height = DragDrop.self.originalY - e.clientY + DragDrop.self.originalHeight + "px";
+         DragDrop.self.style.top = e.clientY + "px";
+         DragDrop.self.style.left = e.clientX + "px";
 
-            }
-            else if (DragDrop.direct == "TopRight") {
-                DragDrop.self.style.width = e.clientX - DragDrop.self.originalX + DragDrop.self.originalWidth + "px";
-                DragDrop.self.style.height = DragDrop.self.originalY - e.clientY + DragDrop.self.originalHeight + "px";
-                DragDrop.self.style.top = e.clientY + "px";
-            }
-            else if (DragDrop.direct == "DownLeft") {
-                DragDrop.self.style.width = DragDrop.self.originalX - e.clientX + DragDrop.self.originalWidth + "px";
-                DragDrop.self.style.height = e.clientY - DragDrop.self.originalY + DragDrop.self.originalHeight + "px";
-                DragDrop.self.style.left = e.clientX + "px";
-            }
-            else if (DragDrop.direct == "DownRight") {
-                DragDrop.self.style.width = e.clientX - DragDrop.self.originalX + DragDrop.self.originalWidth + "px";
-                DragDrop.self.style.height = e.clientY - DragDrop.self.originalY + DragDrop.self.originalHeight + "px";
-            }
-            else if (DragDrop.direct == "Right") {
-                DragDrop.self.style.width = e.clientX - DragDrop.self.originalX + DragDrop.self.originalWidth + "px";
+         }
+         else if (DragDrop.direct == "TopRight") {
+         DragDrop.self.style.width = e.clientX - DragDrop.self.originalX + DragDrop.self.originalWidth + "px";
+         DragDrop.self.style.height = DragDrop.self.originalY - e.clientY + DragDrop.self.originalHeight + "px";
+         DragDrop.self.style.top = e.clientY + "px";
+         }
+         else if (DragDrop.direct == "DownLeft") {
+         DragDrop.self.style.width = DragDrop.self.originalX - e.clientX + DragDrop.self.originalWidth + "px";
+         DragDrop.self.style.height = e.clientY - DragDrop.self.originalY + DragDrop.self.originalHeight + "px";
+         DragDrop.self.style.left = e.clientX + "px";
+         }
+         else if (DragDrop.direct == "DownRight") {
+         DragDrop.self.style.width = e.clientX - DragDrop.self.originalX + DragDrop.self.originalWidth + "px";
+         DragDrop.self.style.height = e.clientY - DragDrop.self.originalY + DragDrop.self.originalHeight + "px";
+         }
+         else if (DragDrop.direct == "Right") {
+         DragDrop.self.style.width = e.clientX - DragDrop.self.originalX + DragDrop.self.originalWidth + "px";
 
-            }
-            else if (DragDrop.direct == "Left") {
-                DragDrop.self.style.width = DragDrop.self.originalX - e.clientX + DragDrop.self.originalWidth + "px";
-                DragDrop.self.style.left = e.clientX + "px";
-            }
+         }
+         else if (DragDrop.direct == "Left") {
+         DragDrop.self.style.width = DragDrop.self.originalX - e.clientX + DragDrop.self.originalWidth + "px";
+         DragDrop.self.style.left = e.clientX + "px";
+         }
 
-            else if (DragDrop.direct == "Top") {
-                DragDrop.self.style.height = DragDrop.self.originalY - e.clientY + DragDrop.self.originalHeight + "px";
-                DragDrop.self.style.top = e.clientY + "px";
-            }
-            else if (DragDrop.direct == "Down") {
-                DragDrop.self.style.height = e.clientY - DragDrop.self.originalY + DragDrop.self.originalHeight + "px";
-            }
+         else if (DragDrop.direct == "Top") {
+         DragDrop.self.style.height = DragDrop.self.originalY - e.clientY + DragDrop.self.originalHeight + "px";
+         DragDrop.self.style.top = e.clientY + "px";
+         }
+         else if (DragDrop.direct == "Down") {
+         DragDrop.self.style.height = e.clientY - DragDrop.self.originalY + DragDrop.self.originalHeight + "px";
+         }
 
-            var mychild;
-            if ((mychild = DragDrop.selected.childNodes[0])) {
-                if (mychild.nodeName == "IMG") {
-                    DragDrop.selected.childNodes[0].style.width = getComputedStyle(DragDrop.selected).width;
-                    DragDrop.selected.childNodes[0].style.height = getComputedStyle(DragDrop.selected).height;
-                }
-            }
-        }
-        */
+         var mychild;
+         if ((mychild = DragDrop.selected.childNodes[0])) {
+         if (mychild.nodeName == "IMG") {
+         DragDrop.selected.childNodes[0].style.width = getComputedStyle(DragDrop.selected).width;
+         DragDrop.selected.childNodes[0].style.height = getComputedStyle(DragDrop.selected).height;
+         }
+         }
+         }
+         */
     },
     dropme: function (e) {
         DragDrop.direct = undefined;
@@ -144,10 +143,9 @@ var DragDrop =
             DragDrop.selected.style.left = DragDrop.selected.beginningPositionLeft + 'px';
             DragDrop.selected.style.top = DragDrop.selected.beginningPositionTop + 'px';
         }
-        else if(!DragDrop.selected._id)
-        {
-            console.log(window.ProjectManager.getCurrentActivy());
-            var parent = window.LayoutManager.getParent(event.clientX, event.clientY,window.ProjectManager.getCurrentActivy());
+        else if (!DragDrop.selected._id) {
+           // console.log(window.ProjectManager.getCurrentActivy());
+            var parent = window.LayoutManager.getParent(event.clientX, event.clientY, window.ProjectManager.getCurrentActivy());
             var listItem = document.createElement("li");
 
             var newObj = document.createElement(DragDrop.selected.nodeName);
@@ -169,33 +167,36 @@ var DragDrop =
 
             var myId = window.utiles.generateId(DragDrop.selected._innerText);
             newObj._id = myId;
-            newObj._innerText=DragDrop.selected._innerText;
+            newObj._import = DragDrop.selected._import;
+            newObj._innerText = DragDrop.selected._innerText;
             window.properties.selectItem(newObj);
 
-    newObj.addEventListener('click',function (e) {
-        window.properties.selectItem(e.target);
-    });
+            newObj.addEventListener('click', function (e) {
+                window.properties.selectItem(e.target);
+            });
             DragDrop.selected.style.left = DragDrop.selected.beginningPositionLeft + 'px';
             DragDrop.selected.style.top = DragDrop.selected.beginningPositionTop + 'px';
 
 
             window.widgetResizing.linearResizing(newObj);
-            window.widgetResizing.reOrdering(DragDrop.WorkspaceDev,newObj);
+            window.widgetResizing.reOrdering(DragDrop.WorkspaceDev, newObj);
 
 
-           var HandelXml=function ()
-            {
-               // console.log(parent._id);
-                var activity_id=window.ProjectManager.getCurrentActivy().id;
-                window.tree.addChild(activity_id,parent._id,myId);
-                fileXml = window.tree.printTree(activity_id,parent._id);
-                console.log(fileXml)
+            var handleJava = function () {
+                window.JavaGenerator.addMember(window.ProjectManager.getCurrentActivy().id, 'private', newObj._innerText, newObj._id, newObj._import);
+            }();
+
+            var HandelXml = function () {
+                // console.log(parent._id);
+                var activity_id = window.ProjectManager.getCurrentActivy().id;
+                window.tree.addChild(activity_id, parent._id, myId);
+                fileXml = window.tree.printTree(activity_id, parent._id);
+                //console.log(fileXml)
             }();
 
         }
     },
-    myAction: function (Element)
-    {
+    myAction: function (Element) {
         Element.className = 'draggable';  //give element class draggable which in turn make position absolute
         Element.addEventListener('mousedown', DragDrop.move, false);      //the first step in making drag and drop when you press on mouse
         Element.addEventListener('mousemove', DragDrop.scaling, false);   //this is for making scaling and change cursor

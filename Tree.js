@@ -118,7 +118,7 @@ function loadTree() {
     window.tree = window.tree || new Tree();
     window.NodeObj = window.NodeObj || Node;
 
-     var WorkspaceDev = window.ProjectManager.getCurrentActivy();   //this is the div where we drag and drop the element in it
+    var WorkspaceDev = window.ProjectManager.getCurrentActivy();   //this is the div where we drag and drop the element in it
 
 };
 

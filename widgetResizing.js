@@ -3,8 +3,7 @@
 (function () {
 
 
-    function linearResizing(element)
-    {
+    function linearResizing(element) {
         element.originalWidth = parseInt(window.getComputedStyle(element).width);
         element.originalHeight = parseInt(window.getComputedStyle(element).height);
 
@@ -15,8 +14,7 @@
             element.direct = "Move";
         }, false);
 
-        function changeCursor(e)
-        {
+        function changeCursor(e) {
 
             if (e.offsetX >= element.originalWidth - 8 && e.offsetY >= element.originalHeight - 8) {
                 element.style.cursor = "nwse-resize";
@@ -47,15 +45,14 @@
             element.originalHeight = parseInt(window.getComputedStyle(element).height);
 
 
-            document.addEventListener('mousemove',startResizing,false);
-            document.addEventListener('mouseup',function (e) {
-                document.removeEventListener('mousemove',startResizing,false);
-            },false);
+            document.addEventListener('mousemove', startResizing, false);
+            document.addEventListener('mouseup', function (e) {
+                document.removeEventListener('mousemove', startResizing, false);
+            }, false);
         }
 
 
-        function startResizing(e)
-        {
+        function startResizing(e) {
             e.stopPropagation();
 
             if (element.direct == "DownRight") {
@@ -76,55 +73,53 @@
     }
 
 
-    function reOrdering(mainListElement,element) {
-        element.addEventListener('click',function (e) {
+    function reOrdering(mainListElement, element) {
+        element.addEventListener('click', function (e) {
 
-            console.log(element,element.parentNode,mainListElement.children.length);
-            element.parentNode.style.width=window.getComputedStyle(element).width;
-            element.parentNode.style.height=window.getComputedStyle(element).height;
-            element.style.position="absolute";
+            //console.log(element, element.parentNode, mainListElement.children.length);
+            element.parentNode.style.width = window.getComputedStyle(element).width;
+            element.parentNode.style.height = window.getComputedStyle(element).height;
+            element.style.position = "absolute";
 
-            var ul=element.parentNode.parentNode;
-            console.log(element.parentNode.parentNode);
+            var ul = element.parentNode.parentNode;
+            //console.log(element.parentNode.parentNode);
 
 
             /*
 
-            //mouseDown
-            this.beginningPositionLeft = parseInt(window.getComputedStyle(this).left);
-            this.beginningPositionTop = parseInt(window.getComputedStyle(this).top);
+             //mouseDown
+             this.beginningPositionLeft = parseInt(window.getComputedStyle(this).left);
+             this.beginningPositionTop = parseInt(window.getComputedStyle(this).top);
 
-            this.mouseX = e.clientX;
-            this.mouseY = e.clientY;
+             this.mouseX = e.clientX;
+             this.mouseY = e.clientY;
 
-            //moving
-            element.style.left = element.beginningPositionLeft + e.clientX - element.mouseX + 'px';
-            element.style.top = element.beginningPositionTop + e.clientY - element.mouseY + 'px';
-            element.style.cursor = "move";
+             //moving
+             element.style.left = element.beginningPositionLeft + e.clientX - element.mouseX + 'px';
+             element.style.top = element.beginningPositionTop + e.clientY - element.mouseY + 'px';
+             element.style.cursor = "move";
 
 
-            //mouseUp
-            element.style.left = element.beginningPositionLeft+ 'px';
-            element.style.top = element.beginningPositionTop+'px';
-            element.style.position="relative";
+             //mouseUp
+             element.style.left = element.beginningPositionLeft+ 'px';
+             element.style.top = element.beginningPositionTop+'px';
+             element.style.position="relative";
 
-            */
+             */
 
             //mainListElement.prepend(mainListElement.children[2]);
 
             /*var temp= mainListElement.children[2];
-            mainListElement.children[2]=mainListElement.children[3];
-            mainListElement.children[3]=temp;*/
+             mainListElement.children[2]=mainListElement.children[3];
+             mainListElement.children[3]=temp;*/
 
-        },false);
+        }, false);
     }
-
 
 
     window.widgetResizing = window.widgetResizing || {};
     window.widgetResizing.linearResizing = linearResizing;
     window.widgetResizing.reOrdering = reOrdering;
-
 
 
 })();

@@ -160,6 +160,8 @@
         this.arr[id].visibility = getValueFromSelectList(visibility);
         this.arr[id].background = background;
         this.arr[id].onClick = onClick;
+        for (var it in arr[id])
+            if (arr[id][it] == 'none')delete arr[id][it];
         return this.arr[id];
     }
 

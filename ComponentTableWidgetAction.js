@@ -5,8 +5,7 @@
 (function () {
 
 
-    function linearResizing(Element)
-    {
+    function linearResizing(Element) {
         Element.className = 'draggable';
         Element.addEventListener('mousedown', DragDrop.move, false);
         Element.addEventListener('mousemove', DragDrop.scaling, false);
@@ -32,6 +31,7 @@
             document.addEventListener('mouseup', DragDrop.dropme, false);
             //document.addEventListener('mouseout',DragDrop.dropme,false);
         }
+
         function dragme(e) {
             DragDrop.selected.className = 'draggable';
 
@@ -93,6 +93,7 @@
              }
              */
         }
+
         function dropme(e) {
             DragDrop.direct = undefined;
             document.removeEventListener('mousemove', DragDrop.dragme, false);
@@ -107,8 +108,7 @@
                 DragDrop.selected.style.left = DragDrop.selected.beginningPositionLeft + 'px';
                 DragDrop.selected.style.top = DragDrop.selected.beginningPositionTop + 'px';
             }
-            else if(!DragDrop.selected._id)
-            {
+            else if (!DragDrop.selected._id) {
                 var parent = window.LayoutManager.getParent(event.clientX, event.clientY, "WorkspaceContainer");
                 var listItem = document.createElement("li");
 
@@ -143,6 +143,7 @@
 
             }
         }
+
         function myAction(Element) {
             Element.className = 'draggable';  //give element class draggable which in turn make position absolute
             Element.addEventListener('mousedown', DragDrop.move, false);      //the first step in making drag and drop when you press on mouse
@@ -150,6 +151,7 @@
             Element.addEventListener('dblclick', DragDrop.showpopup, false);  //this for showing pop up menu
             Element.addEventListener('click', DragDrop.showproperty, false);  //this is for showing table property of item
         }
+
         function scaling(e) {
             if (parseInt(window.getComputedStyle(this).left) > DragDrop.WorkspaceDevCoordinateLeft && parseInt(window.getComputedStyle(this).left) < DragDrop.WorkspaceDevCoordinateright) {
                 this.originalWidth = parseInt(window.getComputedStyle(this).width);
@@ -200,12 +202,8 @@
     }
 
 
-
-
-
     window.ComponentTableWidgetAction = window.ComponentTableWidgetAction || {};
     window.ComponentTableWidgetAction.linearResizing = linearResizing;
-
 
 
 })();

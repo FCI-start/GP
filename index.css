@@ -1,16 +1,12 @@
-.draggable
-{
+.draggable {
     position: absolute;
 }
 
-.draggable:hover
-{
-    position: absolute;  /*cursor:move;*/
+.draggable:hover {
+    position: absolute; /*cursor:move;*/
 }
 
-
-div#ComponentContainer
-{
+div#ComponentContainer {
     width: 21%;
     height: 500px;
     border: 1px solid black;
@@ -18,22 +14,23 @@ div#ComponentContainer
     float: left;
 }
 
-div#ComponentContainer #LinearLayout,div#ComponentContainer #ListViewComponent{
+div#ComponentContainer #LinearLayout, div#ComponentContainer #ListViewComponent {
     width: 80px;
     min-height: 70px;
-    border:1px dashed gray;
+    border: 1px dashed gray;
     position: absolute;
     background: rgba(190, 255, 241, 0.51);
 }
 
-div#ComponentContainer #ListViewComponent
-{
+div#ComponentContainer #ListViewComponent {
     background: rgba(247, 255, 50, 0.51);
 }
-div ul.WorkspaceContainer ul,div ul#ListviewContainer ul{
+
+div ul.WorkspaceContainer ul, div ul#ListviewContainer ul {
     padding: 0px;
     margin: 0px;
 }
+
 div ul.WorkspaceContainer li {
     /*list-style: none;*/
     list-style-type: none;
@@ -41,38 +38,36 @@ div ul.WorkspaceContainer li {
     margin: 0px;
     display: block;
 }
-div#mobielDev
-{
-    width:50%;
+
+div#mobielDev {
+    width: 50%;
     height: 500px;
     border: 1px solid black;
-    margin-left:5px;
+    margin-left: 5px;
     float: left;
 }
-div ul.WorkspaceContainer,div ul#ListviewContainer
-{
+
+div ul.WorkspaceContainer, div ul#ListviewContainer {
     padding: 0px;
     margin: 0px;
 }
-div ul#ListviewContainer{
+
+div ul#ListviewContainer {
     display: none;
     background-color: #9799dd;
     height: 100%;
 }
 
-div#ProperiesContainer
-{
-    width:21%;
+div#ProperiesContainer {
+    width: 21%;
     height: 500px;
     border: 1px solid black;
     padding: 10px;
-    margin:0 5px;
+    margin: 0 5px;
     float: left;
 }
 
-
-div#ProperiesContainer table
-{
+div#ProperiesContainer table {
     padding: 5px;
     margin: 0 auto;
     width: 90%;
@@ -80,36 +75,32 @@ div#ProperiesContainer table
     display: none;
 }
 
-div#ProperiesContainer table tr td input[type='text']
-{
+div#ProperiesContainer table tr td input[type='text'] {
     width: 100px;
 }
 
-div.popup ,div.listviewpopup
-{
+div.popup, div.listviewpopup {
     width: 200px;
     background-color: aquamarine;
     position: absolute;
     padding: 5px;
 
     border-radius: 5px;
-    transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
+    transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
     z-index: 1000;
     display: none;
 }
 
-div.popup table tr input[type="text"],div.listviewpopup table tr input[type="text"]
-{
+div.popup table tr input[type="text"], div.listviewpopup table tr input[type="text"] {
     width: 130px;
 }
 
-div.popup #close,div.listviewpopup #listviewclose
-{
-    width:22px;
+div.popup #close, div.listviewpopup #listviewclose {
+    width: 22px;
     height: 22px;
     font-size: 22px;
     text-align: center;
@@ -118,45 +109,43 @@ div.popup #close,div.listviewpopup #listviewclose
     color: brown;
     float: right;
 }
-body div.cover
-{
+
+body div.cover {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0px;
     left: 0px;
-    background-color: rgba(0,0,0,0.5);
-    transition:all 2s ease;
-    -o-transition:all 2s ease;
-    -webkit-transition:all 2s ease;
-    -ms-transition:all 2s ease;
-    -moz-transition:all 2s ease;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: all 2s ease;
+    -o-transition: all 2s ease;
+    -webkit-transition: all 2s ease;
+    -ms-transition: all 2s ease;
+    -moz-transition: all 2s ease;
     display: none;
 }
 
-div.popup #close:hover,div.listviewpopup #listviewclose:hover
-{
+div.popup #close:hover, div.listviewpopup #listviewclose:hover {
     background-color: bisque;
     color: white;
     cursor: default;
     border-color: bisque;
 }
-div#ComponentContainer table
-{
+
+div#ComponentContainer table {
     padding: 5px;
     margin: 0 auto;
     width: 90%;
 }
 
-div#ComponentContainer div{
+div#ComponentContainer div {
     width: 100%;
     padding: 5px;
     float: left;
     height: 40px;
 }
 
-div#ComponentContainer div#divtextview label
-{
+div#ComponentContainer div#divtextview label {
     display: block;
     width: 80px;
     text-align: center;
@@ -165,26 +154,23 @@ div#ComponentContainer div#divtextview label
     margin-top: 6px;
 }
 
-div#ComponentContainer div#divButton button,div ul.WorkspaceContainer li button
-{
+div#ComponentContainer div#divButton button, div ul.WorkspaceContainer li button {
     width: 80px;
     height: 35px;
     margin: 0 auto;
 }
 
-div#ComponentContainer div#divedittext input
-{
+div#ComponentContainer div#divedittext input {
     width: 100px;
 }
-div#ComponentContainer div#divlistview div
-{
+
+div#ComponentContainer div#divlistview div {
     border: dashed 1px #000;
     width: 100px;
     text-align: center;
 }
 
-div#ComponentContainer div#divimageview div
-{
+div#ComponentContainer div#divimageview div {
     border: solid 1px #000;
     width: 100px;
     text-align: center;

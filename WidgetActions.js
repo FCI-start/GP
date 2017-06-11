@@ -5,10 +5,8 @@
 (function () {
 
 
-    function myAction(Element)
-    {
-        if(Element.style.position==="absolute")
-        {
+    function myAction(Element) {
+        if (Element.style.position === "absolute") {
             Element.className = 'draggable';
             Element.addEventListener('mousedown', DragDrop.move, false);
         }
@@ -17,8 +15,7 @@
         Element.addEventListener('click', DragDrop.showproperty, false);  //this is for showing table property of item
     }
 
-    function move(e)
-    {
+    function move(e) {
         //prevent any default action
         e.preventDefault();
 
@@ -41,8 +38,7 @@
         //document.addEventListener('mouseout',DragDrop.dropme,false);
     }
 
-    function dragme(e)
-    {
+    function dragme(e) {
         DragDrop.selected.className = 'draggable';
         if (DragDrop.direct == "Move" || DragDrop.direct == undefined) {
             //do computation to make mouse in the place where it press during moving
@@ -91,8 +87,7 @@
             }
 
             var mychild;
-            if ((mychild = DragDrop.selected.childNodes[0]))
-            {
+            if ((mychild = DragDrop.selected.childNodes[0])) {
                 if (mychild.nodeName == "IMG") {
                     DragDrop.selected.childNodes[0].style.width = getComputedStyle(DragDrop.selected).width;
                     DragDrop.selected.childNodes[0].style.height = getComputedStyle(DragDrop.selected).height;
@@ -101,8 +96,7 @@
         }
     }
 
-    function dropme(e)
-    {
+    function dropme(e) {
         DragDrop.direct = undefined;
         document.removeEventListener('mousemove', DragDrop.dragme, false);
         document.removeEventListener('mouseup', DragDrop.dropme, false);
@@ -130,25 +124,23 @@
              */
 
 
-            if (!DragDrop.selected._id)
-            {
+            if (!DragDrop.selected._id) {
 
                 var listItem = document.createElement("li");
                 var newObj = document.createElement(DragDrop.selected.nodeName);
                 DragDrop.myLinearAction(newObj);
 
 
-
-                newObj.style.width=window.getComputedStyle(DragDrop.selected).width;
-                newObj.style.height=window.getComputedStyle(DragDrop.selected).height;
-                newObj.style.backgroundColor=window.getComputedStyle(DragDrop.selected).backgroundColor;
-                newObj.style.border=window.getComputedStyle(DragDrop.selected).border;
+                newObj.style.width = window.getComputedStyle(DragDrop.selected).width;
+                newObj.style.height = window.getComputedStyle(DragDrop.selected).height;
+                newObj.style.backgroundColor = window.getComputedStyle(DragDrop.selected).backgroundColor;
+                newObj.style.border = window.getComputedStyle(DragDrop.selected).border;
 
                 listItem.appendChild(newObj);
                 DragDrop.myLinearAction(newObj);
                 DragDrop.WorkspaceDev.appendChild(listItem);
                 DragDrop.init(newObj)
-                newObj.className="";
+                newObj.className = "";
 
 
                 if (DragDrop.selected.nodeName == 'DIV' && window.getComputedStyle(DragDrop.selected).borderStyle == 'dashed')
@@ -160,14 +152,13 @@
                     newObj.innerText = DragDrop.selected.nodeName.toLowerCase();
 
 
-
-                var myId=window.utiles.generateId(DragDrop.selected.tagName);
-                newObj._id=myId;
+                var myId = window.utiles.generateId(DragDrop.selected.tagName);
+                newObj._id = myId;
 
                 DragDrop.selected.style.left = DragDrop.selected.beginningPositionLeft + 'px';
                 DragDrop.selected.style.top = DragDrop.selected.beginningPositionTop + 'px';
 
-                console.log(window.LayoutManager.getParent(e.clientX,e.clientY));
+                console.log(window.LayoutManager.getParent(e.clientX, e.clientY));
 
                 /*window.tree.addChild("LINEAR_LAYOUT1",myId,undefined,DragDrop.selected);
                  fileXml = window.tree.printTree();
@@ -178,8 +169,7 @@
         }
     }
 
-    function scaling(e)
-    {
+    function scaling(e) {
         if (parseInt(window.getComputedStyle(this).left) > DragDrop.WorkspaceDevCoordinateLeft && parseInt(window.getComputedStyle(this).left) < DragDrop.WorkspaceDevCoordinateright) {
 
             this.originalWidth = parseInt(window.getComputedStyle(this).width);
@@ -228,8 +218,7 @@
         }
     }
 
-    function showpopup(e)
-    {
+    function showpopup(e) {
         if (parseInt(window.getComputedStyle(this).left) > DragDrop.WorkspaceDevCoordinateLeft && parseInt(window.getComputedStyle(this).left) < DragDrop.WorkspaceDevCoordinateright) {
             var popupDiv;
             if (e.target.parentNode.id == 'divlistview') {
@@ -266,8 +255,6 @@
             }, false);
         }
     }
-
-
 
 
     window.WidgetActions = window.WidgetActions || {};
