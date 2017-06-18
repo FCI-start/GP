@@ -34,7 +34,7 @@
         updatePropertiesView(HtmlObj._innerText);
         window.utiles.setPropertiestoObject(HtmlObj._id, HtmlObj._innerText);
         var xmlObject = window.utiles.arr[HtmlObj._id];
-        console.log(utiles.objectToXml(xmlObject));
+     //   console.log(utiles.objectToXml(xmlObject));
     }
 
     function updatePropertiesView(draggedItem) {

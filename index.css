@@ -301,3 +301,133 @@ td {
     width: 100%;
     float: right;
 }
+
+#popupBoxOnePosition {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 150%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+}
+
+.popupBoxWrapper {
+    width: 700px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.popupBoxContent {
+    border-radius: 5px;
+    background-color: #FFF;
+    padding: 10px;
+}
+
+#closePopup {
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 20px;
+    /*padding: 20px;*/
+    text-align: center;
+}
+
+#savePopup {
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+    /*padding: 20px;*/
+
+}
+
+#functionWrpper {
+    /*border: solid 1px black;*/
+    height: 475px;
+    text-align: center;
+}
+
+#funComponent {
+    border: solid 1px black;
+    height: 450px;
+    width: 40%;
+    float: left;
+    /*overflow: auto;*/
+}
+
+#funLines {
+    border: solid 1px black;
+    height: 450px;
+    width: 55%;
+    float: left;
+    overflow: auto;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.showToast {
+    border: 1px solid red;
+    border-radius: 3px;
+    margin: 5px;
+    padding: 5px;
+    cursor: move;
+    position: relative;
+
+}
+
+.showToastFrom {
+    border: 1px solid red;
+    border-radius: 3px;
+    margin: 5px;
+    padding: 5px;
+    cursor: move;
+    position: relative;
+
+}
+
+.moveValueofViews {
+    border: 1px solid red;
+    border-radius: 3px;
+    margin: 5px;
+    padding: 5px;
+    cursor: move;
+    position: relative;
+    text-align: center;
+}
+
+.startActivity {
+    border: 1px solid red;
+    border-radius: 3px;
+    margin: 5px;
+    padding: 5px;
+    cursor: move;
+    position: relative;
+    text-align: center;
+}
+
+.addField {
+    margin: 5px;
+    margin-left: 50px;
+    color: black;
+    font-size: 17px;
+    background: gainsboro;
+    cursor: pointer;
+}
+
+.toastText {
+    width: 120px;
+}
+
+.fieldKey {
+    width: 90px;
+}
+
+.fieldValue {
+    width: 90px;
+}
+
+.removeExtraRow {
+    cursor: pointer;
+    background: gainsboro;
+}

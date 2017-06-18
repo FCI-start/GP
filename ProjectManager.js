@@ -3,35 +3,65 @@
  */
 
 (function () {
-
-
     var activityNames = [];
     var currentActivityName;
     var selectorElement = document.getElementById('all_activity');
 
-    function generateActivityName() {
-        var i = 1;
-        while (1) {
-            if (!activityNames.hasOwnProperty("activity" + i)) {
-                activityNames["activity" + i] = true;
-                return "activity" + i;
+    function generateActivityName(id) {
+        //console.log(id);
+        if (id) {
+            if (!activityNames.hasOwnProperty(id)) {
+                activityNames[id] = true;
+                return id;
+            } else {
+                return '5ra';
             }
 
-            i++;
+        }
+        else {
+            var i = 1;
+            while (1) {
+                if (!activityNames.hasOwnProperty("activity" + i)) {
+                    activityNames["activity" + i] = true;
+                    return "activity" + i;
+                }
+
+                i++;
+            }
         }
     }
 
-    function generateMainLayout() {
-        var file = generateActivityName();
-        var layout = document.createElement("ul");
-        layout.className = "WorkspaceContainer";
-        layout.id = file;
-        document.getElementById('mobielDev').appendChild(layout);
+    function generateMainLayout(id) {
+        var file = generateActivityName(id);
+
+        var layout;
+        if (file !== '5ra') {
+            layout = document.createElement("ul");
+            //layout.style.backgroundColor="red";
+            layout.className = "WorkspaceContainer";
+            layout.id = file;
+            document.getElementById('mobielDev').appendChild(layout);
+            createOptionItem(file);
+            handleXMLTree(layout);
+            if (!id) {
+                window.JavaGenerator.generateDefaultJaveActivity(layout.id);
+                window.JavaGenerator.printJavaActivity(layout.id);
+            }
+
+            if (currentActivityName)
+                layout.parentActivity = getCurrentActivy().id;
+        }
+
+
         hideCurrentActivity();
-        createOptionItem(file);
-        handleXMLTree(layout);
-        window.JavaGenerator.generateDefaultJaveActivity(layout.id);
-        window.JavaGenerator.printJavaActivity(layout.id);
+
+        if (id) {
+            document.getElementById(id).style.display = 'visiable';
+            layout = document.getElementById(id);
+            window.JavaGenerator.createListViewHolderAndAdapter(layout.parentActivity, id);
+            //console.log(layout.parentActivity);
+            window.JavaGenerator.getAlladptersAndLists(layout.parentActivity);
+        }
         return currentActivityName = layout;
     }
 
@@ -72,7 +102,6 @@
         optionItem.innerText = name;
         optionItem.selected = true;
     }
-
 
     window.ProjectManager = window.ProjectManager || {};
     window.ProjectManager.activityNames = activityNames || [];

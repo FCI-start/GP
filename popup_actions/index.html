@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Simple Popup Boxes</title>
+
+    <!--<script type="text/javascript">-->
+    <!--&lt;!&ndash;-->
+    <!--function toggle_visibility(id) {-->
+    <!--var e = document.getElementById(id);-->
+    <!--if (e.style.display == 'block') {-->
+    <!--e.style.display = 'none';-->
+
+    <!--var fun = document.getElementById('funLines');-->
+
+    <!--while (fun.hasChildNodes()) {-->
+    <!--fun.removeChild(fun.lastChild);-->
+    <!--}-->
+    <!--}-->
+    <!--else-->
+    <!--e.style.display = 'block';-->
+    <!--}-->
+    <!--//&ndash;&gt;-->
+    <!--</script>-->
+
+    <style type="text/css">
+
+        #popupBoxOnePosition {
+            top: 0;
+            left: 0;
+            position: absolute;
+            width: 100%;
+            height: 150%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+        }
+
+        .popupBoxWrapper {
+            width: 700px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .popupBoxContent {
+            border-radius: 5px;
+            background-color: #FFF;
+            padding: 10px;
+        }
+
+        #closePopup {
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 20px;
+            /*padding: 20px;*/
+            text-align: center;
+        }
+
+        #savePopup {
+            text-decoration: none;
+            text-align: center;
+            font-size: 20px;
+            /*padding: 20px;*/
+
+        }
+
+        #functionWrpper {
+            /*border: solid 1px black;*/
+            height: 475px;
+            text-align: center;
+        }
+
+        #funComponent {
+            border: solid 1px black;
+            height: 450px;
+            width: 40%;
+            float: left;
+            /*overflow: auto;*/
+        }
+
+        #funLines {
+            border: solid 1px black;
+            height: 450px;
+            width: 55%;
+            float: left;
+            overflow: auto;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .showToast {
+            border: 1px solid red;
+            border-radius: 3px;
+            margin: 5px;
+            padding: 5px;
+            cursor: move;
+            position: relative;
+
+        }
+
+        .showToastFrom {
+            border: 1px solid red;
+            border-radius: 3px;
+            margin: 5px;
+            padding: 5px;
+            cursor: move;
+            position: relative;
+
+        }
+
+        .moveValueofViews {
+            border: 1px solid red;
+            border-radius: 3px;
+            margin: 5px;
+            padding: 5px;
+            cursor: move;
+            position: relative;
+            text-align: center;
+        }
+
+        .startActivity {
+            border: 1px solid red;
+            border-radius: 3px;
+            margin: 5px;
+            padding: 5px;
+            cursor: move;
+            position: relative;
+            text-align: center;
+        }
+
+        .addField {
+            margin: 5px;
+            margin-left: 50px;
+            color: black;
+            font-size: 17px;
+            background: gainsboro;
+            cursor: pointer;
+        }
+
+        .toastText {
+            width: 120px;
+        }
+
+        .fieldKey {
+            width: 90px;
+        }
+
+        .fieldValue {
+            width: 90px;
+        }
+
+        .removeExtraRow {
+            cursor: pointer;
+            background: gainsboro;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+<div id="popupBoxOnePosition">
+    <div class="popupBoxWrapper">
+        <div class="popupBoxContent">
+            <h3>Create function</h3>
+
+            <div id="functionWrpper">
+                <div id="funComponent">
+                    components
+                    <div class="showToast">
+                        Show Toast <input  type="text" placeholder="Toast Message">
+                    </div>
+
+                    <div class="showToastFrom">
+                        Show Toast getText from <select class="selectFrom">
+                        <option>EditText1</option>
+                        <option>TextView1</option>
+                    </select>
+                    </div>
+
+                    <div class="moveValueofViews">
+                        setText To
+                        <select class="setValueTo">
+                            <option>EditText1</option>
+                            <option>TextView1</option>
+                        </select>
+                        <br>
+                        getText from
+
+                        <select class="setValueFrom">
+                            <option>EditText1</option>
+                            <option>TextView1</option>
+                        </select>
+                    </div>
+
+
+                    <div class="startActivity">
+                        start actvity
+                        <select class="activities">
+                            <option>activity2</option>
+                        </select>
+                        <br>
+                        with extras <span class="addField" onclick="addExtraRow(this.parentNode)">+add</span> <br>
+                        <table class="extraTable" >
+                            <tr class="extraRow">
+                                <td>
+                                    <input class="fieldKey" type="text" placeholder="key" >
+                                </td>
+                                <td>
+                                    <input class="fieldValue" type="text" placeholder="value" >
+                                </td>
+                                <td class="removeExtraRow" onclick="removeExtraRow(this);">
+                                    remove
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div id="funLines">
+                    function actions
+                    <ul id="funList">
+
+                    </ul>
+                </div>
+            </div>
+
+            <a id="savePopup" href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition',true);">Save</a>
+            <a id="closePopup" href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition');">Close</a>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="wrapper">
+
+    <p>Click <a href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition');">here</a> to see popup box
+        one.</p>
+
+</div><!-- wrapper end -->
+
+<script src="PopupFunctionMove.js"></script>
+<script src="PopupFunction.js"></script>
+</body>
+
+</html>

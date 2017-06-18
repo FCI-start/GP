@@ -421,6 +421,88 @@
 </div>
 
 
+
+
+
+
+
+<div id="popupBoxOnePosition">
+    <div class="popupBoxWrapper">
+        <div class="popupBoxContent">
+            <h3>Create function</h3>
+
+            <div id="functionWrpper">
+                <div id="funComponent">
+                    components
+                    <div class="showToast">
+                        Show Toast <input  type="text" placeholder="Toast Message">
+                    </div>
+
+                    <div class="showToastFrom">
+                        Show Toast getText from <select class="selectFrom">
+                        <option>EditText1</option>
+                        <option>TextView1</option>
+                    </select>
+                    </div>
+
+                    <div class="moveValueofViews">
+                        setText To
+                        <select class="setValueTo">
+                            <option>EditText1</option>
+                            <option>TextView1</option>
+                        </select>
+                        <br>
+                        getText from
+
+                        <select class="setValueFrom">
+                            <option>EditText1</option>
+                            <option>TextView1</option>
+                        </select>
+                    </div>
+
+
+                    <div class="startActivity">
+                        start actvity
+                        <select class="activities">
+                            <option>activity2</option>
+                        </select>
+                        <br>
+                        with extras <span class="addField" onclick="addExtraRow(this.parentNode)">+add</span> <br>
+                        <table class="extraTable" >
+                            <tr class="extraRow">
+                                <td>
+                                    <input class="fieldKey" type="text" placeholder="key" >
+                                </td>
+                                <td>
+                                    <input class="fieldValue" type="text" placeholder="value" >
+                                </td>
+                                <td class="removeExtraRow" onclick="removeExtraRow(this);">
+                                    remove
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div id="funLines">
+                    function actions
+                    <ul id="funList">
+
+                    </ul>
+                </div>
+            </div>
+
+            <a id="savePopup" href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition',true);">Save</a>
+            <a id="closePopup" href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition');">Close</a>
+
+        </div>
+    </div>
+</div>
+
+
+
+
 <script src="ProjectManager.js"></script>
 <script src="JavaGenerator.js"></script>
 <script src="Utiles.js"></script>
@@ -429,6 +511,8 @@
 <script src="ResizableElement.js"></script>
 <script src="widgetResizing.js"></script>
 <script src="widgetProperties.js"></script>
+<script src="popup_actions/PopupFunctionMove.js"></script>
+<script src="popup_actions/PopupFunction.js"></script>
 <script src="apps.js"></script>
 <script src="execution.js"></script>
 

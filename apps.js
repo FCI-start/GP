@@ -144,7 +144,7 @@ var DragDrop =
             DragDrop.selected.style.top = DragDrop.selected.beginningPositionTop + 'px';
         }
         else if (!DragDrop.selected._id) {
-           // console.log(window.ProjectManager.getCurrentActivy());
+            // console.log(window.ProjectManager.getCurrentActivy());
             var parent = window.LayoutManager.getParent(event.clientX, event.clientY, window.ProjectManager.getCurrentActivy());
             var listItem = document.createElement("li");
 
@@ -174,6 +174,16 @@ var DragDrop =
             newObj.addEventListener('click', function (e) {
                 window.properties.selectItem(e.target);
             });
+
+            newObj.addEventListener('dblclick', function (e) {
+
+                if (newObj._innerText == "ListView") {
+                    window.ProjectManager.generateMainLayout(newObj._id);
+                }
+                else {
+                    toggle_visibility('popupBoxOnePosition');
+                }
+            });
             DragDrop.selected.style.left = DragDrop.selected.beginningPositionLeft + 'px';
             DragDrop.selected.style.top = DragDrop.selected.beginningPositionTop + 'px';
 
@@ -183,7 +193,8 @@ var DragDrop =
 
 
             var handleJava = function () {
-                window.JavaGenerator.addMember(window.ProjectManager.getCurrentActivy().id, 'private', newObj._innerText, newObj._id, newObj._import);
+                console.log('current=',window.ProjectManager.getCurrentActivy());
+                window.JavaGenerator.addMember(window.ProjectManager.getCurrentActivy(), 'private', newObj._innerText, newObj._id, newObj._import);
             }();
 
             var HandelXml = function () {
