@@ -98,6 +98,7 @@
             //console.log(activities[activity_name],activity_name,importline);
             activities[activity_name].imports[importline] = true;
             activities[activity_name].objects[activity.id + 'Holder'].members[id] = type;
+            console.log("members", activity_name, activity.id, activities[activity_name].objects[activity.id + 'Holder'].members);
             activities[activity_name].objects[activity.id + 'Holder'].constructor.push(id + '=(' + type + ') findViewById(R.id.' + id + ');');
         } else {
             activities[activity_name].imports[importline] = true;
@@ -131,7 +132,7 @@
             implements: ['View.OnClickListener'],
             members: {/* TextView1: 'TextView' */},
             constructor: [/*'mSolved = (CheckBox) itemView.findViewById(R.id.right_checkbox);'*/],
-            bindData: [/*{viewId: 'TextView1', value: 'title'}*/],
+            bindData: {}/*{viewId: 'TextView1', value: 'title'}*/,
             onClick: {gotoActivity: 'ACTIVITY2'}
 
         };
@@ -172,7 +173,7 @@
         activities[activity_Name].objects[listviewId + 'Adapter'] = {
             extends: 'RecyclerView.Adapter<' + listviewId + 'Holder>',
             implements: [],
-            members: [{type: 'List<' + listviewId + 'Model>', id: 'mList'}],
+            members: {}/*{type: 'List<' + listviewId + 'Model>', id: 'mList'}*/,
 
         };
 
@@ -227,6 +228,8 @@
     }
 
     function getHolderStringCode(class_name, holder) {
+        if (!holder.members['mObject'])return '';
+
         var listid = class_name.substr(0, class_name.length - 'Holder'.length);
 
         var res = "private class " + class_name + " extends " + holder.extends;
@@ -239,7 +242,7 @@
         }
         res += '{\n';
 
-        res += '\tprivate ' + listid + 'Model mObject;\n';
+        //res += '\tprivate ' + listid + 'Model mObject;\n';
         for (var i in holder.members) {
             res += '\tprivate ' + holder.members[i] + ' ' + i + ';\n';
         }
@@ -254,11 +257,10 @@
         res += '\n\t}';
 
 
-        res += '\n\tpublic void bindData(' + listid + 'Model object){\n';
+        res += '\n\tpublic void bindData(' + holder.members['mObject'] + ' object){\n';
         res += '\t\tmObject = object;\n';
-        for (var i = 0; i < holder.bindData.length; i++) {
-            var obj = holder.bindData[i];
-            res += '\t\t' + obj.viewId + '.setText(object.' + obj.value + ');\n'
+        for (var i in holder.bindData) {
+            res += '\t\t' + i + '.setText(object.' + holder.bindData[i] + ');\n'
         }
         res += '\n\t}';
 
@@ -273,6 +275,7 @@
     }
 
     function getAdapterStringCode(class_name, adapter) {
+        if (!adapter.members['mList'])return '';
         var listid = class_name.substr(0, class_name.length - 'Adapter'.length);
 
         var res = "\nprivate class " + class_name + " extends " + adapter.extends;
@@ -290,10 +293,10 @@
             res += '\tprivate ' + obj.type + ' ' + obj.id + ';\n';
         }
 
-        res += '\tpublic ' + class_name + '(List<' + listid + 'Model> list) {\n';
+        res += '\tpublic ' + class_name + '(' + adapter.members['mList'] + ' list) {\n';
         res += '\t\tmList = list;\n\t}\n';
 
-        res += '\n\tpublic void setList(List<' + listid + 'Model> list) {\n' +
+        res += '\n\tpublic void setList(' + adapter.members['mList'] + ' list) {\n' +
             '\t\tmList = list;\n\t}\n';
 
         res += '\tpublic ' + listid + 'Holder onCreateViewHolder(ViewGroup parent, int viewType) {\n' +
@@ -302,7 +305,8 @@
             '\t\treturn new ' + listid + 'Holder(v);\n\t}\n\n';
 
         res += '\tpublic void onBindViewHolder(' + listid + 'Holder holder, int position) {\n\t\t' +
-            listid + 'Model object = mList.get(position);\n' +
+            adapter.members['mList'].substr(5, adapter.members['mList'].length - 6) +
+            ' object = mList.get(position);\n' +
             '\t\tholder.bindData(object);\n\t}\n';
 
 
@@ -311,11 +315,79 @@
         return res;
     }
 
+
+    function getHolderMembers(activity, list_view) {
+        return activities[activity].objects[list_view + 'Holder'].members;
+    }
+
+    function bindMember(activityId, listViewId, ViewId, memberId) {
+        activities[activityId].objects[listViewId + 'Holder'].bindData[ViewId] = memberId;
+    }
+
+
+    function addApiFunction(activityId, listviewId, url, method, objectPath, idPath) {
+        var strContent = '\t\tRetrofit retrofit = new Retrofit.Builder()\n' +
+            '\t\t\t.baseUrl(\"' + url + '\")\n' +
+            '\t\t\t.addConverterFactory(GsonConverterFactory.create())\n' +
+            '\t\t\t.build();\n' +
+            '\t\t' + listviewId + 'Interface client = retrofit.create(' + listviewId + 'Interface.class);\n' +
+            '\t\t' + method.header + ' call = client.getData';
+
+        var cnt = 0, par = '';
+        //Todo 2060 handle null Extra
+        for (var i in method.params) {
+            if (cnt)par += ' , ';
+
+            if (method.params[i].isDynamic) {
+                par += 'getIntent().getStringExtra(\"' + method.params[i].key + '\")';
+                cnt++;
+            } else {
+                par += '\"' + method.params[i].key + '\"';
+            }
+        }
+        strContent += '( ' + par + ' );\n\n';
+
+
+        var strCallInner = method.header.substr(5, method.header.length - 6);
+        var strBody = '';
+        if (objectPath)
+            strBody = '\t\t\t\tList<' + strCallInner + '.' + objectPath + '> list = response.body().' + idPath + ';\n';
+        else
+            strBody = '\t\t\t\t' + strCallInner + ' list = response.body();\n';
+
+        strBody += '\t\t\t\tm' + listviewId + 'Adapter.setList(list);\n' +
+            '\t\t\t\tm' + listviewId + 'Adapter.notifyDataSetChanged();\n';
+
+        strContent += '\t\tcall.enqueue(' +
+            'new ' + method.header + '() {\n' +
+            '\t\t\t@Override\n' +
+            '\t\t\tpublic void onResponse(' + method.header + ' call,' + method.header.replace('Call', 'Response') + ' response) {\n' +
+            strBody +
+            '\t\t\t}\n' +
+            '\t\t\t@Override\n' +
+            '\t\t\tpublic void onFailure(' + method.header + ' call, Throwable t) {\n' +
+            '\t\t\t}\n' +
+            '\t\t});\n';
+
+
+        console.log(strContent);
+    }
+
+    function addModelTypeToHolder(activtyId, listViewId, type) {
+        activities[activtyId].objects[listViewId + 'Holder'].members['mObject'] = type;
+        activities[activtyId].objects[listViewId + 'Adapter'].members['mList'] = 'List<' + type + '>';
+    }
+
+
     window.JavaGenerator = window.JavaGenerator || {};
     window.JavaGenerator.printJavaActivity = printJavaActivity;
     window.JavaGenerator.addMember = addMember;
     window.JavaGenerator.generateDefaultJaveActivity = generateDefaultJaveActivity;
     window.JavaGenerator.createListViewHolderAndAdapter = createListViewHolderAndAdapter;
     window.JavaGenerator.getAlladptersAndLists = getAlladptersAndLists;
+    window.JavaGenerator.getHolderMembers = getHolderMembers;
+    window.JavaGenerator.bindMember = bindMember;
+    window.JavaGenerator.addApiFunction = addApiFunction;
+    window.JavaGenerator.addModelTypeToHolder = addModelTypeToHolder;
 
 })();

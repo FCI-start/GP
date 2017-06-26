@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Simple Popup Boxes</title>
+
+    <!--<script type="text/javascript">-->
+    <!--&lt;!&ndash;-->
+    <!--function toggle_visibility(id) {-->
+    <!--var e = document.getElementById(id);-->
+    <!--if (e.style.display == 'block') {-->
+    <!--e.style.display = 'none';-->
+
+    <!--var fun = document.getElementById('funLines');-->
+
+    <!--while (fun.hasChildNodes()) {-->
+    <!--fun.removeChild(fun.lastChild);-->
+    <!--}-->
+    <!--}-->
+    <!--else-->
+    <!--e.style.display = 'block';-->
+    <!--}-->
+    <!--//&ndash;&gt;-->
+    <!--</script>-->
+
+    <style type="text/css">
+
+        #popupBoxConfig {
+            top: 0;
+            left: 0;
+            position: absolute;
+            width: 100%;
+            /*height: 150%;*/
+            min-height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            text-align: center;
+        }
+
+        .popupBoxWrapper {
+            width: 800px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .popupBoxContent {
+            border-radius: 5px;
+            background-color: #FFF;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #closePopupConfig {
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 20px;
+            /*padding: 20px;*/
+            text-align: center;
+        }
+
+        #savePopupConfig {
+            text-decoration: none;
+            text-align: center;
+            font-size: 20px;
+            /*padding: 20px;*/
+
+        }
+
+        .configTable {
+            text-align: left;
+
+            /*padding: 20px;*/
+            margin-left: 50px;
+        }
+
+        .configRowInput {
+            width: 320px;
+            margin-left: 20px;
+        }
+
+        .configRowInput {
+            margin: 5px;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .configQuery {
+            padding: 0px;
+            margin: 5px;
+            text-align: center;
+        }
+
+        #queryCreator {
+            display: none;
+        }
+
+        #checkboxCreator {
+            display: none;
+        }
+
+        #jsonEx {
+            width: 553px;
+            height: 200px;
+            margin-top: 25px;
+            resize: none;
+        }
+
+        .queryRow {
+            margin-top: 5px;
+        }
+
+        #page-wrap {
+            margin: auto 0;
+        }
+
+        .treeview {
+            margin: 20px 0 0 40px;
+            text-align: left;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .treeview li {
+            /*background: url(http://jquery.bassistance.de/treeview/images/treeview-default-line.gif) 0 0 no-repeat;*/
+            padding: 2px 0 2px 16px;
+        }
+
+        .treeview > li:first-child > label {
+            /* style for the root element - IE8 supports :first-child
+            but not :last-child ..... */
+
+        }
+
+        .treeview li.last {
+            background-position: 0 -1766px;
+        }
+
+        .treeview li > input {
+            height: 16px;
+            width: 16px;
+            /* hide the inputs but keep them in the layout with events (use opacity) */
+            opacity: 0;
+            filter: alpha(opacity=0); /* internet explorer */
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=0)"; /*IE8*/
+        }
+
+        .treeview li > label {
+            background: url(https://www.thecssninja.com/demo/css_custom-forms/gr_custom-inputs.png) 0 -1px no-repeat;
+            /* move left to cover the original checkbox area */
+            margin-left: -20px;
+            /* pad the text to make room for image */
+            padding-left: 20px;
+            font-weight: bold;
+            margin-bottom: 1px;
+        }
+
+        /* Unchecked styles */
+
+        .treeview .custom-unchecked {
+            background-position: 0 -1px;
+        }
+
+        .treeview .custom-unchecked:hover {
+            background-position: 0 -21px;
+        }
+
+        /* Checked styles */
+
+        .treeview .custom-checked {
+            background-position: 0 -81px;
+        }
+
+        .treeview .custom-checked:hover {
+            background-position: 0 -101px;
+        }
+
+        /* Indeterminate styles */
+
+        .treeview .custom-indeterminate {
+            background-position: 0 -141px;
+        }
+
+        .treeview .custom-indeterminate:hover {
+            background-position: 0 -121px;
+        }
+
+        .bindWithDev {
+            width: 100%;
+            font-size: 12px;
+            margin-left: 30px;
+            color: #ff0062;
+            margin-bottom: 2px;
+        }
+
+        .bindWithSel {
+            font-size: 11px;
+
+        }
+
+        #radioCreator {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+<div id="popupBoxConfig">
+    <div class="popupBoxWrapper">
+        <div class="popupBoxContent">
+            <h3>ListView Api Config</h3>
+
+            <ul id="queryCreator">
+                <li class="queryRow">
+                    <input type="text" class="qKey" placeholder="query key">
+                    <input type="text" class="qValue" oninput="dynamicQuery(this)"
+                           placeholder="value use {} for dynamic">
+                    get from:
+                    <select class="queryFrom" disabled>
+                        <option value="1">Activity Extras</option>
+                        <option value="2">Shared Preferences</option>
+                    </select>
+                </li>
+            </ul>
+
+            <div id="checkboxCreator">
+                <li>
+                    <input type="checkbox">
+                    <label class="custom-checked" onclick="checkBoxChanged(this)">
+                    </label>
+                    <div class="bindWithDev">
+                        Bind with:
+                        <select class="bindWithSel">
+                            <option value="none">none</option>
+                        </select>
+                    </div>
+                </li>
+            </div>
+
+            <table class="configTable">
+                <tr class="configRow">
+                    <td>Method <select name="method" id="configMethod">
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                    </select></td>
+                    <td><input type="text" class="configRowInput" id="baseUrl"
+                               placeholder="url.eg https://api.github.com/"></td>
+                </tr>
+                <tr class="configRow">
+                    <td></td>
+                    <td><input id="path" class="configRowInput" oninput="dynamicPath(this)" type="text"
+                               placeholder="path.eg users/aly or users/{user} if user is dynamic">
+
+                    </td>
+                    <td>
+                        from:
+                        <select class="pathFrom" disabled>
+                            <option value="1">Activity Extras</option>
+                            <option value="2">Shared Preferences</option>
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+
+            <ul class="configQuery">
+                <li>Query:
+                    <input id="addQuery" type="button" value="Add" onclick="addQuery(this.parentNode.parentNode)">
+                    <input id="delQuery" type="button" value="Del" onclick="removeQuery(this.parentNode.parentNode)">
+                </li>
+            </ul>
+
+            <div>
+                <textarea id="jsonEx" oninput="jsonInput(this)" placeholder="enter response json copy."></textarea>
+            </div>
+
+            <div id="radioCreator">
+                <input type="radio" name="list">
+                <label></label>
+            </div>
+            <div id="selectListDiv">
+                The result is Object You must select List:<br>
+                <!--<input type="radio" name="list" >-->
+            </div>
+
+            <ul class="treeview">
+            </ul>
+
+
+            <a id="savePopupConfig" href="javascript:void(0)"
+               onclick="toggle_config_visibility('popupBoxConfig',true);">Save</a>
+            <a id="closePopupConfig" href="javascript:void(0)"
+               onclick="toggle_config_visibility('popupBoxConfig');">Close</a>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="wrapper">
+
+    <p>Click <a href="javascript:void(0)" onclick="toggle_config_visibility('popupBoxConfig');">here</a> to see popup
+        box
+        one.</p>
+
+</div><!-- wrapper end -->
+
+<script src="configurationPopup.js"></script>
+</body>
+
+</html>

@@ -14,6 +14,9 @@
     <select id="all_activity">
 
     </select>
+    <a id="listViewConfig" href="javascript:void(0)" style="color: #fff; display: none;"
+       onclick="toggle_config_visibility('popupBoxConfig')">ListView Config</a>
+
 </div>
 <div id="ComponentContainer">
     <table id="ComponentTable">
@@ -421,9 +424,96 @@
 </div>
 
 
+<div id="popupBoxConfig">
+    <div class="popupBoxWrapper">
+        <div class="popupBoxContent">
+            <h3>ListView Api Config</h3>
+
+            <ul id="queryCreator">
+                <li class="queryRow">
+                    <input type="text" class="qKey" placeholder="query key">
+                    <input type="text" class="qValue" oninput="dynamicQuery(this)"
+                           placeholder="value use {} for dynamic">
+                    get from:
+                    <select class="queryFrom" disabled>
+                        <option value="1">Activity Extras</option>
+                        <option value="2">Shared Preferences</option>
+                    </select>
+                </li>
+            </ul>
+
+            <div id="checkboxCreator">
+                <li>
+                    <input type="checkbox">
+                    <label class="custom-checked"  onclick="checkBoxChanged(this)">
+                    </label>
+                    <div class="bindWithDev">
+                        Bind with:
+                        <select class="bindWithSel">
+                            <option value="none">none</option>
+                        </select>
+                    </div>
+                </li>
+            </div>
+
+            <table class="configTable">
+                <tr class="configRow">
+                    <td>Method <select name="method" id="configMethod">
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                    </select></td>
+                    <td><input type="text" class="configRowInput" id="baseUrl"
+                               value="http://codeforces.com/api/"
+                               placeholder="url.eg https://api.github.com/"></td>
+                </tr>
+                <tr class="configRow">
+                    <td></td>
+                    <td><input id="path" class="configRowInput" oninput="dynamicPath(this)" type="text"
+                               placeholder="path.eg users/aly or users/{user} if user is dynamic">
+
+                    </td>
+                    <td>
+                        from:
+                        <select class="pathFrom" disabled>
+                            <option value="1">Activity Extras</option>
+                            <option value="2">Shared Preferences</option>
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+
+            <ul class="configQuery">
+                <li>Query:
+                    <input id="addQuery" type="button" value="Add" onclick="addQuery(this.parentNode.parentNode)">
+                    <input id="delQuery" type="button" value="Del" onclick="removeQuery(this.parentNode.parentNode)">
+                </li>
+            </ul>
+
+            <div>
+                <textarea id="jsonEx" oninput="jsonInput(this)" placeholder="enter response json copy."></textarea>
+            </div>
+
+            <div id="radioCreator">
+                <input type="radio" name="list">
+                <label></label>
+            </div>
+            <div id="selectListDiv">
+                <!--<input type="radio" name="list" >-->
+            </div>
+
+            <ul class="treeview">
+            </ul>
 
 
+            <a id="savePopupConfig" href="javascript:void(0)"
+               onclick="toggle_config_visibility('popupBoxConfig',true);">Save</a>
+            <a id="closePopupConfig" href="javascript:void(0)"
+               onclick="toggle_config_visibility('popupBoxConfig');">Close</a>
 
+        </div>
+    </div>
+</div>
 
 
 <div id="popupBoxOnePosition">
@@ -435,7 +525,7 @@
                 <div id="funComponent">
                     components
                     <div class="showToast">
-                        Show Toast <input  type="text" placeholder="Toast Message">
+                        Show Toast <input type="text" placeholder="Toast Message">
                     </div>
 
                     <div class="showToastFrom">
@@ -468,13 +558,13 @@
                         </select>
                         <br>
                         with extras <span class="addField" onclick="addExtraRow(this.parentNode)">+add</span> <br>
-                        <table class="extraTable" >
+                        <table class="extraTable">
                             <tr class="extraRow">
                                 <td>
-                                    <input class="fieldKey" type="text" placeholder="key" >
+                                    <input class="fieldKey" type="text" placeholder="key">
                                 </td>
                                 <td>
-                                    <input class="fieldValue" type="text" placeholder="value" >
+                                    <input class="fieldValue" type="text" placeholder="value">
                                 </td>
                                 <td class="removeExtraRow" onclick="removeExtraRow(this);">
                                     remove
@@ -493,14 +583,13 @@
                 </div>
             </div>
 
-            <a id="savePopup" href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition',true);">Save</a>
+            <a id="savePopup" href="javascript:void(0)"
+               onclick="toggle_visibility('popupBoxOnePosition',true);">Save</a>
             <a id="closePopup" href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition');">Close</a>
 
         </div>
     </div>
 </div>
-
-
 
 
 <script src="ProjectManager.js"></script>
@@ -515,6 +604,8 @@
 <script src="popup_actions/PopupFunction.js"></script>
 <script src="apps.js"></script>
 <script src="execution.js"></script>
+<script src="Networking/configurationPopup.js"></script>
+<script src="Networking/NetworkHandler.js"></script>
 
 </body>
 </html>

@@ -10,6 +10,7 @@
     function generateActivityName(id) {
         //console.log(id);
         if (id) {
+            document.getElementById('listViewConfig').style.display = 'inline-block';
             if (!activityNames.hasOwnProperty(id)) {
                 activityNames[id] = true;
                 return id;
@@ -19,6 +20,7 @@
 
         }
         else {
+            document.getElementById('listViewConfig').style.display = 'none';
             var i = 1;
             while (1) {
                 if (!activityNames.hasOwnProperty("activity" + i)) {
@@ -91,7 +93,11 @@
         hideCurrentActivity();
         currentActivityName = document.getElementById(selectorElement.value);
         currentActivityName.style.display = 'block';
-
+        if (selectorElement.value.indexOf("ListView") !== -1) {
+            document.getElementById('listViewConfig').style.display = 'inline-block';
+        } else {
+            document.getElementById('listViewConfig').style.display = 'none';
+        }
     }
 
     function createOptionItem(name) {

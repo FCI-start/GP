@@ -20,7 +20,8 @@
 function JsonToJavaObject(strJson) {
     var JavaObject = createEmptyJObject();
     var js = JSON.parse(strJson);
-
+    if (isArray(js))
+        js = js[0];
 
     function createEmptyJObject() {
         return {
@@ -148,6 +149,8 @@ var text1 = '{ "employees" : [' +
     '{ "firstName":"John" , "lastName":"Doe" , "age":15 , "rate":12.5 ,"isWorking":true },' +
     '{ "firstName":"Anna" , "lastName":"Smith" ,"age":22 , "rate":25.5,"isWorking":true },' +
     '{ "firstName":"Peter" , "lastName":"Jones","age":21 , "rate":22.5,"isWorking":true } ]}';
+var text2 = `
+[{"lastName":"Khodyrev","country":"Russia","lastOnlineTimeSeconds":1497785239,"city":"Moscow","rating":1977,"friendOfCount":78,"titlePhoto":"http://userpic.codeforces.com/1592/title/27e43714e4bea090.jpg","handle":"DmitriyH","avatar":"http://userpic.codeforces.com/1592/avatar/7cef566902732053.jpg","firstName":"Dmitriy","contribution":39,"organization":"KL","rank":"candidate master","maxRating":2072,"registrationTimeSeconds":1268570311,"maxRank":"candidate master"},{"lastName":"Fefer","country":"Russia","lastOnlineTimeSeconds":1493884037,"city":"Saratov","rating":2240,"friendOfCount":243,"titlePhoto":"http://userpic.codeforces.com/242/title/151ab49dee0779f8.jpg","handle":"Fefer_Ivan","avatar":"http://userpic.codeforces.com/242/avatar/c4e6a102a9e66281.jpg","firstName":"Ivan","contribution":32,"organization":"aimtech","rank":"master","maxRating":2476,"registrationTimeSeconds":1264960450,"maxRank":"grandmaster"}]
+`;
 
-
-console.log(JsonToJavaObject(text1));
+console.log(JsonToJavaObject(text2));
