@@ -177,7 +177,7 @@ var DragDrop =
 
             newObj.addEventListener('dblclick', function (e) {
 
-                if (newObj._innerText == "ListView") {
+                if (newObj._innerText == "RecyclerView") {
                     window.ProjectManager.generateMainLayout(newObj._id);
                 }
                 else {
@@ -193,7 +193,7 @@ var DragDrop =
 
 
             var handleJava = function () {
-                console.log('current=',window.ProjectManager.getCurrentActivy());
+              //  console.log('current=',window.ProjectManager.getCurrentActivy());
                 window.JavaGenerator.addMember(window.ProjectManager.getCurrentActivy(), 'private', newObj._innerText, newObj._id, newObj._import);
             }();
 

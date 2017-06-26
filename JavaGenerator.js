@@ -7,7 +7,7 @@
  * Created by Ahmed Shaban on 11/03/2017.
  */
 (function () {
-    var activities = [];
+    var activities = {};
 
 
     function generateDefaultJaveActivity(activity_name) {
@@ -81,7 +81,7 @@
         out += getAlladptersAndLists(activity_name);
 
         out += '\n}\n';
-        console.log(out);
+        // console.log(out);
         return out;
 
     }
@@ -93,13 +93,13 @@
         obj.id = id;
 
         var activity_name = activity.id;
-        if (activity_name.indexOf('ListView') !== -1) {
+        if (activity_name.indexOf('RecyclerView') !== -1) {
             activity_name = activity.parentActivity;
             //console.log(activities[activity_name],activity_name,importline);
             activities[activity_name].imports[importline] = true;
             activities[activity_name].objects[activity.id + 'Holder'].members[id] = type;
-            console.log("members", activity_name, activity.id, activities[activity_name].objects[activity.id + 'Holder'].members);
-            activities[activity_name].objects[activity.id + 'Holder'].constructor.push(id + '=(' + type + ') findViewById(R.id.' + id + ');');
+            // console.log("members", activity_name, activity.id, activities[activity_name].objects[activity.id + 'Holder'].members);
+            activities[activity_name].objects[activity.id + 'Holder'].constructor.push(id + '=(' + type + ') itemView.findViewById(R.id.' + id + ');');
         } else {
             activities[activity_name].imports[importline] = true;
             activities[activity_name].members.push(obj);
@@ -111,19 +111,6 @@
     }
 
     function createListViewHolderAndAdapter(activity_Name, listviewId) {
-        activities[activity_Name].imports['import android.support.v7.widget.LinearLayoutManager;'] = true;
-        activities[activity_Name].imports['import android.support.v7.widget.RecyclerView;'] = true;
-        activities[activity_Name].imports['import android.view.LayoutInflater;'] = true;
-        activities[activity_Name].imports['import android.view.View;'] = true;
-        activities[activity_Name].imports['import android.view.ViewGroup;'] = true;
-        activities[activity_Name].members.push({
-            access: 'private',
-            type: listviewId + 'Adapter',
-            id: 'm' + listviewId + 'Adapter'
-        });
-        activities[activity_Name].functions.onCreate.content += '\n\t' + listviewId + '.setLayoutManager(new LinearLayoutManager(getApplicationContext()));';
-        activities[activity_Name].functions.onCreate.content += '\n\tm' + listviewId + 'Adapter = new ' + listviewId + 'Adapter(new ArrayList<>());';
-        activities[activity_Name].functions.onCreate.content += '\n\t' + listviewId + '.setAdapter(m' + listviewId + 'Adapter);';
 
 
         activities[activity_Name].objects[listviewId + 'Holder'] = {
@@ -133,42 +120,10 @@
             members: {/* TextView1: 'TextView' */},
             constructor: [/*'mSolved = (CheckBox) itemView.findViewById(R.id.right_checkbox);'*/],
             bindData: {}/*{viewId: 'TextView1', value: 'title'}*/,
-            onClick: {gotoActivity: 'ACTIVITY2'}
+            onClick: {/*gotoActivity: 'ACTIVITY2'*/}
 
         };
-        /*
-         private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-         private TextView mCrimeTitleHolderTextView;
-         private TextView mDateTextView;
-         private CheckBox mSolved;
-         private Crime mCrime;
 
-
-         public CrimeHolder(View itemView) {
-         super(itemView);
-         mCrimeTitleHolderTextView = (TextView) itemView.findViewById(R.id.upper_text_view);
-         mDateTextView = (TextView) itemView.findViewById(R.id.lower_text_view);
-         mSolved = (CheckBox) itemView.findViewById(R.id.right_checkbox);
-         itemView.setOnClickListener(this);
-         }
-
-         public void bindCrime(Crime crime) {
-         mCrime = crime;
-         mCrimeTitleHolderTextView.setText(crime.getTittle());
-         mDateTextView.setText(crime.getDate().toString());
-         mSolved.setChecked(crime.isSolved());
-
-         }
-
-         @Override
-         public void onClick(View v) {
-         mPosition = getLayoutPosition();
-         Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId(), mPosition);
-         startActivity(intent);
-
-         }
-         }
-         */
 
         activities[activity_Name].objects[listviewId + 'Adapter'] = {
             extends: 'RecyclerView.Adapter<' + listviewId + 'Holder>',
@@ -177,38 +132,6 @@
 
         };
 
-        /*
-         private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
-         public List<Crime> mCrimes;
-
-         public CrimeAdapter(List<Crime> crimes) {
-         mCrimes = crimes;
-         }
-
-         @Override
-         public CrimeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-         View v = layoutInflater.inflate(R.layout.crime_list_item, parent, false);
-         return new CrimeHolder(v);
-         }
-
-         @Override
-         public void onBindViewHolder(CrimeHolder holder, int position) {
-         Crime crime = mCrimes.get(position);
-         holder.bindCrime(crime);
-
-         }
-
-         public void setmCrimes(List<Crime> crimes) {
-         mCrimes = crimes;
-         }
-
-         @Override
-         public int getItemCount() {
-         return mCrimes.size();
-         }
-         }
-         */
 
     }
 
@@ -260,15 +183,20 @@
         res += '\n\tpublic void bindData(' + holder.members['mObject'] + ' object){\n';
         res += '\t\tmObject = object;\n';
         for (var i in holder.bindData) {
-            res += '\t\t' + i + '.setText(object.' + holder.bindData[i] + ');\n'
+            if (holder.members[i] === 'ImageView')
+                res += '\t\tsetImage( ' + i + ', object.' + holder.bindData[i] + ');\n'
+            else
+                res += '\t\t' + i + '.setText(object.' + holder.bindData[i] + ' + \"\");\n'
         }
         res += '\n\t}';
 
 
         res += '\n\tpublic void onClick(View v) {\n';
-        res += '\t\tIntent intent=new Intent(getApplicationContext(),' + holder.onClick.gotoActivity + '.class);\n';
-        res += '\t\tintent.putExtra(\"object\",mObject);\n';
-        res += '\t\tstartActivity(intent);\n';
+        if (holder.onClick.gotoActivity) {
+            res += '\t\tIntent intent=new Intent(getApplicationContext(),' + holder.onClick.gotoActivity + '.class);\n';
+            res += '\t\tintent.putExtra(\"object\",mObject);\n';
+            res += '\t\tstartActivity(intent);\n';
+        }
         res += '\t}\n';
         res += '}\n';
         return res;
@@ -288,9 +216,8 @@
         }
         res += '{\n';
 
-        for (var i = 0; i < adapter.members.length; i++) {
-            var obj = adapter.members[i];
-            res += '\tprivate ' + obj.type + ' ' + obj.id + ';\n';
+        for (var i in adapter.members) {
+            res += '\tprivate ' + adapter.members[i] + ' ' + i + ';\n';
         }
 
         res += '\tpublic ' + class_name + '(' + adapter.members['mList'] + ' list) {\n';
@@ -301,7 +228,7 @@
 
         res += '\tpublic ' + listid + 'Holder onCreateViewHolder(ViewGroup parent, int viewType) {\n' +
             '\t\tLayoutInflater layoutInflater = LayoutInflater.from(getApplicationContext());\n' +
-            '\t\tView v = layoutInflater.inflate(R.layout.' + listid + ', parent, false);\n' +
+            '\t\tView v = layoutInflater.inflate(R.layout.' + listid.toLowerCase() + ', parent, false);\n' +
             '\t\treturn new ' + listid + 'Holder(v);\n\t}\n\n';
 
         res += '\tpublic void onBindViewHolder(' + listid + 'Holder holder, int position) {\n\t\t' +
@@ -326,7 +253,25 @@
 
 
     function addApiFunction(activityId, listviewId, url, method, objectPath, idPath) {
-        var strContent = '\t\tRetrofit retrofit = new Retrofit.Builder()\n' +
+        var strCallInner = method.header.substr(5, method.header.length - 6);
+        var listType = strCallInner;
+        if (objectPath)
+            listType += '.' + objectPath;
+
+        var strContent = '';
+
+        activities[activityId].members.push({
+            access: 'private',
+            type: listviewId + 'Adapter',
+            id: 'm' + listviewId + 'Adapter'
+        });
+
+        strContent += '\n\t' + listviewId + '.setLayoutManager(new LinearLayoutManager(getApplicationContext()));';
+        strContent += '\n\tm' + listviewId + 'Adapter = new ' + listviewId + 'Adapter(new ArrayList<' + listType + '>());';
+        strContent += '\n\t' + listviewId + '.setAdapter(m' + listviewId + 'Adapter);\n';
+
+
+        strContent += '\t\tRetrofit retrofit = new Retrofit.Builder()\n' +
             '\t\t\t.baseUrl(\"' + url + '\")\n' +
             '\t\t\t.addConverterFactory(GsonConverterFactory.create())\n' +
             '\t\t\t.build();\n' +
@@ -348,7 +293,6 @@
         strContent += '( ' + par + ' );\n\n';
 
 
-        var strCallInner = method.header.substr(5, method.header.length - 6);
         var strBody = '';
         if (objectPath)
             strBody = '\t\t\t\tList<' + strCallInner + '.' + objectPath + '> list = response.body().' + idPath + ';\n';
@@ -359,7 +303,7 @@
             '\t\t\t\tm' + listviewId + 'Adapter.notifyDataSetChanged();\n';
 
         strContent += '\t\tcall.enqueue(' +
-            'new ' + method.header + '() {\n' +
+            'new Callback<' + strCallInner + '>() {\n' +
             '\t\t\t@Override\n' +
             '\t\t\tpublic void onResponse(' + method.header + ' call,' + method.header.replace('Call', 'Response') + ' response) {\n' +
             strBody +
@@ -370,7 +314,25 @@
             '\t\t});\n';
 
 
-        console.log(strContent);
+        //console.log(strContent);
+        activities[activityId].functions['render' + listviewId] = {
+            access: 'private',
+            sig: 'void',
+            name: 'render' + listviewId,
+            params: [],
+            content: strContent
+        };
+
+        activities[activityId].functions['setImage'] = {
+            access: 'private',
+            sig: 'void',
+            name: 'setImage',
+            params: ['ImageView', 'String'],
+            content: 'Picasso.with(getApplicationContext()).load(param2).into(param1);'
+        };
+
+        activities[activityId].functions['onCreate'].content += '\n\t\trender' + listviewId + '();\n';
+        addRecyclerImports(activityId);
     }
 
     function addModelTypeToHolder(activtyId, listViewId, type) {
@@ -379,8 +341,31 @@
     }
 
 
+    function addRecyclerImports(activityId) {
+        activities[activityId].imports['import android.support.v7.widget.LinearLayoutManager;'] = true;
+        activities[activityId].imports['import android.view.LayoutInflater;'] = true;
+        activities[activityId].imports['import android.view.View;'] = true;
+        activities[activityId].imports['import android.view.ViewGroup;'] = true;
+        activities[activityId].imports['import com.squareup.picasso.Picasso;'] = true;
+        activities[activityId].imports['import java.util.ArrayList;'] = true;
+        activities[activityId].imports['import retrofit2.Call;'] = true;
+        activities[activityId].imports['import java.util.List;'] = true;
+        activities[activityId].imports['import retrofit2.Callback;'] = true;
+        activities[activityId].imports['import retrofit2.Response;'] = true;
+        activities[activityId].imports['import retrofit2.Retrofit;'] = true;
+        activities[activityId].imports['import retrofit2.converter.gson.GsonConverterFactory;'] = true;
+        //activities[activityId].imports[''] = true;
+    }
+
+
+    function printJavaActivities() {
+        for (i in activities)
+            console.log(printJavaActivity(i));
+    }
+
     window.JavaGenerator = window.JavaGenerator || {};
     window.JavaGenerator.printJavaActivity = printJavaActivity;
+    window.JavaGenerator.printJavaActivities = printJavaActivities;
     window.JavaGenerator.addMember = addMember;
     window.JavaGenerator.generateDefaultJaveActivity = generateDefaultJaveActivity;
     window.JavaGenerator.createListViewHolderAndAdapter = createListViewHolderAndAdapter;

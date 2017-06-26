@@ -25,8 +25,8 @@ function initComponents() {
     LinearLayout._innerText = "LinearLayout";
     LinearLayout._import = "import android.widget.LinearLayout;";
     var mylistview = document.querySelector('div#ComponentContainer #ListViewComponent');
-    mylistview._innerText = "ListView";
-    mylistview._import = "import android.widget.ListView;";
+    mylistview._innerText = "RecyclerView";
+    mylistview._import = "import android.support.v7.widget.RecyclerView;";
 
 
     DragDrop.init(mybutton);

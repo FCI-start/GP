@@ -142,7 +142,9 @@ function saveConfigs() {
     var copy = empty();
     getCheckedModel(resultObj.obj, copy);
 
-    console.log(getStringClass(copy, 'Model' + listViewId, ''));
+    var strModel = getStringClass(copy, listViewId + 'Model', '');
+    console.log(strModel);
+    window.NetworkHandler.setModel(listViewId + 'Model', strModel);
     console.log(METHOD);
     window.NetworkHandler.createInterface(listViewId, METHOD);
     window.JavaGenerator.addApiFunction(activityId, listViewId, strUrl, METHOD, strListObjectPath, strListIdPath);

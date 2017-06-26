@@ -109,11 +109,17 @@
         optionItem.selected = true;
     }
 
+    function getAllCode() {
+        window.NetworkHandler.printModelsInterfaces();
+        window.JavaGenerator.printJavaActivities();
+    }
+
     window.ProjectManager = window.ProjectManager || {};
     window.ProjectManager.activityNames = activityNames || [];
     window.ProjectManager.generateActivity = generateActivityName;
     window.ProjectManager.generateMainLayout = generateMainLayout;
     window.ProjectManager.getCurrentActivy = getCurrentActivy;
+    window.ProjectManager.getAllCode = getAllCode;
 
 
 })();

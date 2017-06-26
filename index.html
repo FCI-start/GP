@@ -17,6 +17,9 @@
     <a id="listViewConfig" href="javascript:void(0)" style="color: #fff; display: none;"
        onclick="toggle_config_visibility('popupBoxConfig')">ListView Config</a>
 
+    <a id="getAllCode" href="javascript:void(0)" style="color: #fff; "
+       onclick="window.ProjectManager.getAllCode()">PrintAllCode</a>
+
 </div>
 <div id="ComponentContainer">
     <table id="ComponentTable">
@@ -445,7 +448,7 @@
             <div id="checkboxCreator">
                 <li>
                     <input type="checkbox">
-                    <label class="custom-checked"  onclick="checkBoxChanged(this)">
+                    <label class="custom-checked" onclick="checkBoxChanged(this)">
                     </label>
                     <div class="bindWithDev">
                         Bind with:
