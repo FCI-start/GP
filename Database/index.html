@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Simple Popup Boxes</title>
+
+    <style type="text/css">
+
+        #pop_up_add_table
+        {
+            width: 50%;
+            padding: 5px;
+            border: 1px solid #000000;
+            border-radius: 7px;
+            margin: 50px auto;
+            display: none;
+            z-index: 1000;
+        }
+
+        #span_close
+        {
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            border: 1px solid #660550;
+            border-radius: 50%;
+            text-align: center;
+            float: right;
+        }
+        #span_close:hover
+        {
+            background-color: #660550;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+
+        .general_container
+        {
+            display: block;
+            text-align: center;
+            margin: 15px auto;
+        }
+
+        .addtabel{
+            border: 1px solid #000000;
+            border-radius: 7px;
+            margin: 5px;
+            padding:5px;
+        }
+
+        .addtable_btn{
+            padding: 4px 20px;
+            border-radius: 7px;
+            background-color: #555555;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .addcolumnstabel {
+            display: block;
+            margin: 5px;
+            padding:5px;
+            /*background-color: rgba(0, 0, 0, 0.7);*/
+            /*display: none;*/
+        }
+
+        .addcolumnstabel tr td{
+            margin: 0px 10px 0px 0px;
+            padding:2px;
+            /*background-color: rgba(0, 0, 0, 0.7);*/
+            /*display: none;*/
+        }
+
+        .addcolumnstabel .table_btn
+        {
+            border-radius: 7px;
+            background-color: #555555;
+            width: 80px;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .addcolumnstabel .table_btn:hover  .addtable_btn:hover
+        {
+            background-color: #ddd9cb;
+            cursor: pointer;
+        }
+
+        .addcolumnstabel .table_elem
+        {
+            width: 100px;
+            border-radius: 5px;
+            padding: 2px;
+        }
+
+        #pop_up_add_table_cover{
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            position: absolute;
+            top:0;
+            left: 0;
+            display: none;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <p><a href="#" id="pop_up_link">Show Pop up</a></p>
+
+    <div id="pop_up_add_table">
+
+        <span id="span_close">&times;</span>
+
+        <div class="general_container">
+            <label class="addtable_btn"> Add Table</label>
+        </div>
+
+        <div class="addtabel">
+
+            <label>Table Name : </label>
+            <input type="text" />
+            <label class="addtable_btn"> Add Columns</label>
+
+            <table class="addcolumnstabel">
+                <thead>
+                    <td>Name</td>
+                    <td>type</td>
+                    <td>Primary key</td>
+                    <td>Not Null</td>
+                    <td>auto increment</td>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td> <input class="table_elem" type="text" placeholder="Name"></td>
+                        <td>
+                            <select class="table_elem">
+                                <option>Text</option>
+                                <option>Int</option>
+                            </select>
+                        </td>
+                        <td> <input type="checkbox"> </td>
+                        <td> <input type="checkbox"> </td>
+                        <td> <input type="checkbox"> </td>
+                        <td class="table_btn"> remove </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="general_container">
+            <label class="addtable_btn">Save</label>
+            <label class="addtable_btn">Close</label>
+        </div>
+
+
+
+    </div>
+
+    <div id="wrapper">
+        <p>Click
+            <a href="" id="mylink">here</a>
+            to see popup boxone.</p>
+    </div>
+
+    <div id="pop_up_add_table_cover">
+
+    </div>
+
+<script src="DatabasePopupFunction.js"></script>
+
+</body>
+
+</html>

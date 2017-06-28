@@ -341,10 +341,26 @@
         }
     }
 
+    function updateOnClickListFunctions() {
+        while (onClick.lastChild && onClick.lastChild.value!=='none'){
+            onClick.removeChild(onClick.lastChild);
+        }
+
+        var allFunctionNames = window.JavaGenerator.getAllActionFunctionNames();
+        for(var i = 0; i<allFunctionNames.length; i++){
+            var newOption = document.createElement("option");
+            newOption.value = allFunctionNames[i];
+            newOption.innerHTML = allFunctionNames[i];
+            onClick.appendChild(newOption);
+        }
+    }
+
     window.utiles = window.utiles || {};
+    window.utiles.arr = arr || [];
     window.utiles.arr = arr || [];
     window.utiles.generateId = generateId;
     window.utiles.objectToXml = objectToXml;
+    window.utiles.updateOnClickListFunctions = updateOnClickListFunctions;
     window.utiles.generateGroupLayout = generateGroupLayout;
     window.utiles.setDefaultPropertiesToNewObject = setDefaultPropertiesToNewObject;
     window.utiles.fillPropertiesFromSelectedObject = fillPropertiesFromSelectedObject;

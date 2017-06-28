@@ -69,7 +69,7 @@ function onSaveFunction(ulContainer) {
             }
         }
 
-
+        window.utiles.updateOnClickListFunctions();
         return true;
     } else {
         alert('not valid function name');
