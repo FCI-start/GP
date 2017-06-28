@@ -17,31 +17,31 @@
     var textView = document.getElementById('textView');
     var editText = document.getElementById('editText');
 
+
     function addWidgetEventListner(draggedItem) {
         if (draggedItem) {
             draggedItem.addEventListener('click', getGeneralXml, false);
         }
     }
 
-    // button.addEventListener('click', getGeneralXml, false);
-    // imageView.addEventListener('click', getGeneralXml, false);
-    // editText.addEventListener('click', getGeneralXml, false);
-    // textView.addEventListener('click', getGeneralXml, false);
-
-
     function selectItem(HtmlObj) {
         window.curruntlyHtmlObjectSelected = HtmlObj;
-        updatePropertiesView(HtmlObj._innerText);
-        window.utiles.setPropertiestoObject(HtmlObj._id, HtmlObj._innerText);
-        var xmlObject = window.utiles.arr[HtmlObj._id];
-     //   console.log(utiles.objectToXml(xmlObject));
+
+        HtmlObj.style.border = "thin solid #0000FF";
+        updatePropertiesView(HtmlObj);
+        var foundXMLObject = window.utiles.arr[HtmlObj._id];
+        if(!foundXMLObject){
+            foundXMLObject = window.utiles.setDefaultPropertiesToNewObject(HtmlObj);
+        }
+        window.utiles.fillPropertiesFromSelectedObject(HtmlObj);
+        console.log(utiles.objectToXml(foundXMLObject));
     }
+
 
     function updatePropertiesView(draggedItem) {
         if (draggedItem != null) {
             show(right_div);
-            switch (draggedItem) {
-
+            switch (draggedItem._innerText) {
                 case 'LinearLayout':
                     LinearLayout();
                     break;

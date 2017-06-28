@@ -1,102 +1,5 @@
-// /**
-//  * Created by Ahmed Shaban on 11/03/2017.
-//  */
-// (function () {
-//
-//     var arr = [];
-//     function generateId(name) {
-//         var i = 1;
-//         while (1) {
-//             if (!this.arr.hasOwnProperty(name + i)) {
-//                 generateDeafult(name, name + i);
-//                 return name + i;
-//             }
-//
-//             i++;
-//         }
-//     }
-//
-//
-//     function generateDeafult(type, id) {
-//         if (type == "Button") {
-//             arr[id] = {};
-//             arr[id].type = "Button";
-//             arr[id].id = "@+id/" + id;
-//             arr[id].text = id;
-//             arr[id].width = "wrap_content";
-//             arr[id].height = "wrap_content";
-//
-//         }
-//         else if (type == "TextView") {
-//             arr[id] = {};
-//             arr[id].id = "@+id/" + id;
-//             arr[id].type = "TextView";
-//             arr[id].text = id;
-//             arr[id].width = "wrap_content";
-//             arr[id].height = "wrap_content";
-//         }
-//         else if (type == "EditText") {
-//             arr[id] = {};
-//             arr[id].id = "@+id/" + id;
-//             arr[id].type = "EditText";
-//             arr[id].text = id;
-//             arr[id].width = "wrap_content";
-//             arr[id].height = "wrap_content";
-//         }
-//         else if (type == "ImageView") {
-//             arr[id] = {};
-//             arr[id].id = "@+id/" + id;
-//             arr[id].type = "ImageView";
-//             arr[id].text = id;
-//             arr[id].width = "wrap_content";
-//             arr[id].height = "wrap_content";
-//         }
-//         else if (type == "ListView") {
-//             arr[id] = {};
-//             arr[id].id = "@+id/" + id;
-//             arr[id].type = "ListView";
-//             arr[id].text = id;
-//             arr[id].width = "wrap_content";
-//             arr[id].height = "wrap_content";
-//         }
-//         else if (type === "LinearLayout") {
-//             arr[id] = {};
-//             arr[id].id = "@+id/" + id;
-//             arr[id].type = "LinearLayout";
-//             arr[id].text = id;
-//             arr[id].width = "match_parent";
-//             arr[id].height = "match_parent";
-//         } else{
-//
-//         }
-//     }
-//
-//
-//     function objectToXml(obj) {
-//         var output = "\n<" + obj.type + " \n";
-//         for (key in obj) {
-//             if (key != "type") {
-//                 output += 'android:' + key + '="' + obj[key] + '" \n';
-//             }
-//         }
-//         output += ">";
-//
-//         return output;
-//     }
-//
-//
-//
-//     window.utiles = window.utiles || {};
-//     window.utiles.arr = arr || [];
-//     window.utiles.generateId = generateId;
-//     window.utiles.generateDeafult = generateDeafult;
-//     window.utiles.objectToXml = objectToXml;
-//
-// })();
-
 (function () {
     this.arr = [];
-
     function generateId(name) {
         var i = 1;
         while (1) {
@@ -108,6 +11,26 @@
         }
     }
 
+    //****************************** test change in width and hieght ***************************----------------------
+
+    var widthProperty = document.getElementById("layout_width");
+    var heightProperty = document.getElementById("layout_height");
+    widthProperty.addEventListener("change", changeObjWidth, false);
+    heightProperty.addEventListener("change", changeObjHeight, false);
+
+    function changeObjWidth(){
+        var htmlObj = window.curruntlyHtmlObjectSelected;
+        var xmlObj = window.utiles.arr[htmlObj._id];
+        xmlObj.layout_width = widthProperty.value;
+        htmlObj.style.width = htmlObj.parentNode.parentElement.clientWidth + 'px';
+    }
+    function changeObjHeight(){
+        var htmlObj = window.curruntlyHtmlObjectSelected;
+        var xmlObj = window.utiles.arr[htmlObj._id];
+        xmlObj.layout_height = heightProperty.value;
+        htmlObj.style.height = htmlObj.parentNode.parentElement.clientHeight + 'px';
+    }
+
     function generateGroupLayout(width, heigh, id, type) {
         this.arr[id] = {};
         this.arr[id].type = type;
@@ -116,7 +39,147 @@
         this.arr[id].layout_height = heigh;
     }
 
-    function setPropertiestoObject(id, type) {
+
+    function setDefaultPropertiesToNewObject(htmlObject) {
+
+        var id = htmlObject._id;
+        var type = htmlObject._innerText;
+
+        this.arr[id] = {};
+        this.arr[id].type = type;
+        this.arr[id].id = "@+id/" + id;
+        this.arr[id].layout_width = "wrap_content";
+        this.arr[id].layout_height = "wrap_content";
+        this.arr[id].layout_margin = [0, 0, 0, 0];
+        this.arr[id].layout_padding = [0, 0, 0, 0];
+        this.arr[id].visibility = "visible";
+        this.arr[id].background = "none";
+        this.arr[id].onClick = "none";
+
+
+        if (type == "Button" || type == "TextView") {
+            this.arr[id].text = type;
+            this.arr[id].fontFamily = "none";
+            this.arr[id].textSize = "14sp";
+            this.arr[id].textColor = "none";
+            this.arr[id].textStyle = ["none"];
+
+        } else if (type == "ImageView") {
+            this.arr[id].src = "none";
+            this.arr[id].scaleType = "none";
+            this.arr[id].adjustViewBounds = true;
+        }
+        else if (type == "EditText") {
+            this.arr[id].inputType = "none";
+            this.arr[id].hint = "none";
+            this.arr[id].singleLine = true;
+        }
+
+        return this.arr[id]
+    }
+
+    function fillPropertiesFromSelectedObject(object) {
+
+        var xmlObject = window.utiles.arr[object._id];
+        var objectType = object._innerText;
+
+        //  Assign Basic class
+        var idProperty = document.getElementById("id_text");
+        var widthProperty = document.getElementById("layout_width");
+        var heightProperty = document.getElementById("layout_height");
+        var margins = [document.getElementById("margin_top"),
+            document.getElementById("margin_left"),
+            document.getElementById("margin_buttom"),
+            document.getElementById("margin_right")];
+
+        var paddings = [document.getElementById("padding_top"),
+            document.getElementById("padding_left"),
+            document.getElementById("padding_buttom"),
+            document.getElementById("padding_right")];
+
+        var visibility = document.getElementById("visibility");
+        var background = document.getElementById("background");
+        var onClick = document.getElementById("onClick");
+
+        var orientation = document.getElementById("orientation");
+
+        var widget_text = document.getElementById("widget_text");
+        var font_family = document.getElementById("font_family");
+        var type_face = document.getElementById("type_face");
+        var text_size = document.getElementById("text_size");
+        var text_color = document.getElementById("text_color");
+        var bold = document.getElementById("bold");
+        var italic = document.getElementById("italic");
+        var all_caps = document.getElementById("all_caps");
+
+
+        var inputType = document.getElementById("inputType");
+        var hint = document.getElementById("hint");
+        var singleLine = document.getElementById("singleLine");
+
+
+        var src = document.getElementById("src");
+        var scaleType = document.getElementById("scaleType");
+        var adjustViewBounds = document.getElementById("adjustViewBounds");
+
+
+        // fill basic properties from xml object to right side properties
+        idProperty.value = object._id;
+        console.log(xmlObject.layout_width);
+        widthProperty.value = xmlObject.layout_width;
+        heightProperty.value = xmlObject.layout_height;
+        for (var i =0; i<4; i++){
+            margins[i].value = xmlObject.layout_margin[i];
+        }
+        for (var i =0; i<4; i++){
+            paddings[i].value = xmlObject.layout_padding[i];
+        }
+
+        visibility.value = xmlObject.visibility;
+        background.value = xmlObject.background;
+        onClick.value = xmlObject.onClick;
+
+        if(objectType == "Button" || objectType == "TextView"){
+            widget_text.value = xmlObject.text;
+            font_family.value = xmlObject.fontFamily;
+            text_size.value = xmlObject.textSize;
+            text_color.value = xmlObject.textColor;
+
+            for(var style in xmlObject.textStyle){
+                switch (xmlObject.textStyle){
+                    case "Bold":
+                        bold.checked = true;
+                        break;
+                    case "Italic":
+                        italic.checked = true;
+                        break;
+                    case "AllCaps":
+                        all_caps.checked = true;
+                        break;
+                    default:
+                        bold.checked = false;
+                        italic.checked = false;
+                        all_caps.checked = false;
+                }
+            }
+
+        }else if(objectType == "EditText"){
+            inputType.value = xmlObject.inputType;
+            hint.value = xmlObject.hint;
+            singleLine.checked = xmlObject.singleLine;
+        }else if(objectType == "ImageView"){
+            src.value = xmlObject.src;
+            scaleType.value = xmlObject.scaleType;
+            adjustViewBounds.checked = xmlObject.adjustViewBounds;
+        }
+    }
+
+/*
+    function setPropertiestoObject(htmlObject) {
+
+        var id = htmlObject._id;
+        var type = htmlObject._innerText;
+
         //  Assign Basic class
         var idProperty = document.getElementById("id_text");
         var widthProperty = document.getElementById("layout_width");
@@ -135,8 +198,31 @@
         var background = document.getElementById("background").value;
         var onClick = document.getElementById("onClick").value;
 
+        var orientation = document.getElementById("orientation");
+
+        var widget_text = document.getElementById("widget_text");
+        var font_family = document.getElementById("font_family").value;
+        var type_face = document.getElementById("type_face").value;
+        var text_size = document.getElementById("text_size").value;
+        var text_color = document.getElementById("text_color");
+        var bold = document.getElementById("bold");
+        var italic = document.getElementById("italic");
+        var all_caps = document.getElementById("all_caps");
+
+
+        var inputType = document.getElementById("inputType").value;
+        var hint = document.getElementById("hint");
+        var singleLine = document.getElementById("singleLine");
+
+
+        var src = document.getElementById("src");
+        var scaleType = document.getElementById("scaleType").value;
+        var adjustViewBounds = document.getElementById("adjustViewBounds");
+
+
         idProperty.value = id;
         // if(!arr.hasOwnProperty(id)) {
+
         //     generateDefault();
         // }
         //     previewInProperties();
@@ -160,13 +246,18 @@
         this.arr[id].visibility = getValueFromSelectList(visibility);
         this.arr[id].background = background;
         this.arr[id].onClick = onClick;
+
+
         for (var it in arr[id])
             if (arr[id][it] == 'none')delete arr[id][it];
+
         return this.arr[id];
+
     }
+*/
 
     function getValueFromSelectList(select) {
-        return select.children[select.value].innerText;
+        return select.value;
     }
 
     function objectToXml(obj) {
@@ -180,12 +271,91 @@
         return output;
     }
 
+    function renderPropertyToWidget(obj, htmlObj) {
+        for (prop in obj) {
+            if (prop == "layout_height") {
+                if (obj[prop] == "wrap_content")
+                    htmlObj.height = "";
+                else if (obj[prop] == "match_parent")
+                    htmlObj.height = htmlObj.parent.height;
+                else
+                    htmlObj.height = obj[prop];
+            }
+
+            if (prop == "layout_width") {
+                if (obj[prop] == "wrap_content")
+                    htmlObj.width = "";
+                else if (obj[prop] == "match_parent")
+                    htmlObj.width = htmlObj.parent.width;
+                else
+                    htmlObj.width = obj[prop];
+            }
+
+            if (prop == "layout_margin_buttom") {
+                htmlObj.marginBottom = obj[prop];
+            }
+            if (prop == "layout_margin_left") {
+                htmlObj.marginLeft = obj[prop];
+            }
+            if (prop == "layout_margin_right") {
+                htmlObj.marginRight = obj[prop];
+            }
+            if (prop == "layout_margin_top") {
+                htmlObj.marginTop = obj[prop];
+            }
+            if (prop == "layout_padding_buttom") {
+                htmlObj.paddingBottom = obj[prop];
+            }
+            if (prop == "layout_padding_left") {
+                htmlObj.paddingBottom = obj[prop];
+            }
+            if (prop == "layout_padding_right") {
+                htmlObj.paddingRight = obj[prop];
+            }
+            if (prop == "layout_padding_top") {
+                htmlObj.paddingTop = obj[prop];
+            }
+
+
+            if (obj.type == "Button") {
+                if (prop == "widget_text") {
+                    htmlObj.innerText = obj[prop]
+                }
+                if (prop == "font_family") {
+
+                }
+                if (prop == "type_face") {
+
+                }
+                if (prop == "text_size") {
+
+                }
+                if (prop == "text_color") {
+
+                }
+                if (prop == "bold") {
+
+                }
+                if (prop == "italic") {
+
+                }
+                if (prop == "all_caps") {
+
+                }
+            }
+
+
+        }
+    }
+
     window.utiles = window.utiles || {};
     window.utiles.arr = arr || [];
     window.utiles.generateId = generateId;
-    window.utiles.setPropertiestoObject = setPropertiestoObject;
     window.utiles.objectToXml = objectToXml;
     window.utiles.generateGroupLayout = generateGroupLayout;
+    window.utiles.setDefaultPropertiesToNewObject = setDefaultPropertiesToNewObject;
+    window.utiles.fillPropertiesFromSelectedObject = fillPropertiesFromSelectedObject;
+
 
 })();
 
