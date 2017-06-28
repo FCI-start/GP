@@ -23,11 +23,28 @@
             members: [/*{access: 'private', type: 'Button', id: 'button1'}*/],
             functions: {
                 'onCreate': {
+                    isOverride: true,
                     access: 'protected',
                     sig: 'void',
                     name: 'onCreate',
                     params: ['Bundle'],
                     content: '\tsuper.onCreate(param1);\n\tsetContentView(R.layout.' + activity_name + ');'
+                },
+                'onStart': {
+                    isOverride: true,
+                    access: 'public',
+                    sig: 'void',
+                    name: 'onStart',
+                    params: [],
+                    content: '\tsuper.onStart();\n'
+                },
+                'onStop': {
+                    isOverride: true,
+                    access: 'public',
+                    sig: 'void',
+                    name: 'onStop',
+                    params: [],
+                    content: '\tsuper.onStop();\n'
                 }
             }
             , objects: []
@@ -316,6 +333,7 @@
 
         //console.log(strContent);
         activities[activityId].functions['render' + listviewId] = {
+            isOverride: false,
             access: 'private',
             sig: 'void',
             name: 'render' + listviewId,
@@ -331,7 +349,9 @@
             content: 'Picasso.with(getApplicationContext()).load(param2).into(param1);'
         };
 
-        activities[activityId].functions['onCreate'].content += '\n\t\trender' + listviewId + '();\n';
+        if (activities[activityId].functions['onCreate'].content.indexOf('render' + listviewId + '();') === -1)
+            activities[activityId].functions['onCreate'].content += '\n\t\trender' + listviewId + '();\n';
+
         addRecyclerImports(activityId);
     }
 
@@ -363,6 +383,48 @@
             console.log(printJavaActivity(i));
     }
 
+
+    function getFunctionName(activityId) {
+        var strName = "action";
+        var cnt = 1;
+        while (1) {
+            if (!activities[activityId].functions[strName + cnt])
+                return strName + cnt;
+            cnt++;
+        }
+    }
+
+    function isValdFunctionName(name, activityId) {
+        var reg = new RegExp("^[a-zA-Z_][0-9A-Za-z_]*$");
+        return reg.test(name) && !activities[activityId].functions[name];
+    }
+
+    function addCodeFunction(funName, strCode, activityId, appendTo) {
+        activities[activityId].functions[funName] = {
+            isOverride: false,
+            access: 'private',
+            sig: 'void',
+            name: funName,
+            params: [],
+            content: strCode
+        };
+
+        if (appendTo !== 'none') {
+            activities[activityId].functions[appendTo].content += '\t' + funName + '();\n';
+        }
+    }
+
+    function getAllActionFunctionNames() {
+        var activityId = window.ProjectManager.getCurrentActivy().id;
+        var list = [];
+        for (var name in activities[activityId].functions) {
+            if (!activities[activityId].functions[name].isOverride)
+                list.push(name);
+        }
+        return list;
+    }
+
+
     window.JavaGenerator = window.JavaGenerator || {};
     window.JavaGenerator.printJavaActivity = printJavaActivity;
     window.JavaGenerator.printJavaActivities = printJavaActivities;
@@ -374,5 +436,9 @@
     window.JavaGenerator.bindMember = bindMember;
     window.JavaGenerator.addApiFunction = addApiFunction;
     window.JavaGenerator.addModelTypeToHolder = addModelTypeToHolder;
+    window.JavaGenerator.getFunctionName = getFunctionName;
+    window.JavaGenerator.isValdFunctionName = isValdFunctionName;
+    window.JavaGenerator.addCodeFunction = addCodeFunction;
+    window.JavaGenerator.getAllActionFunctionNames = getAllActionFunctionNames;
 
 })();

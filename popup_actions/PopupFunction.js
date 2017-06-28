@@ -4,20 +4,25 @@
 
 //todo handl all action component dragged in function, get values from them
 function onSaveFunction(ulContainer) {
+    //console.log(editor.getValue());
+    var strCode = "";
+    strCode += editor.getValue();
     for (var i = 0; i < ulContainer.children.length; i++) {
         var ele = ulContainer.children[i];
         if (ele.className === 'showToast') {
 
             var txt = ele.getElementsByTagName('input')[0].value;
             var lineCode = 'Toast.makeText(getApplicationContext(),\"' + txt + '\", Toast.LENGTH_SHORT).show();';
-            console.log(lineCode);
+            // console.log(lineCode);
+            strCode += '\n' + lineCode;
 
         } else if (ele.className === 'showToastFrom') {
 
             var e = ele.getElementsByClassName("selectFrom")[0];
             var txt = e.options[e.selectedIndex].text + '.getText()';
             var lineCode = 'Toast.makeText(getApplicationContext(),' + txt + ', Toast.LENGTH_SHORT).show();';
-            console.log(lineCode);
+            //console.log(lineCode);
+            strCode += '\n' + lineCode;
 
         } else if (ele.className === 'moveValueofViews') {
 
@@ -27,7 +32,8 @@ function onSaveFunction(ulContainer) {
             var fromtxt = e2.options[e2.selectedIndex].text + '.getText()';
 
             var lineCode = totxt + '.setText( ' + fromtxt + ' );';
-            console.log(lineCode);
+            //console.log(lineCode);
+            strCode += '\n' + lineCode;
 
         } else if (ele.className === 'startActivity') {
             var e = ele.getElementsByClassName("activities")[0];
@@ -46,26 +52,56 @@ function onSaveFunction(ulContainer) {
                 }
             }
             intent += '\nstartActivity( intent );';
-            console.log(intent);
+            //console.log(intent);
+            strCode += '\n' + intent + '\n';
         }
     }
+    var radioList = document.getElementsByName('appendFunction');
+
+    var funName = document.getElementById('funName').value;
+    var activityId = window.ProjectManager.getCurrentActivy().id;
+    if (window.JavaGenerator.isValdFunctionName(funName, activityId)) {
+        for (var i = 0; i < radioList.length; i++) {
+            var r = radioList[i];
+            if (r.checked) {
+                window.JavaGenerator.addCodeFunction(funName, strCode, activityId, r.value);
+                break;
+            }
+        }
+
+
+        return true;
+    } else {
+        alert('not valid function name');
+        return false;
+    }
+
+    //console.log(strCode);
 }
 
 function toggle_visibility(id, isSave) {
     var e = document.getElementById(id);
     if (e.style.display == 'block') {
-        e.style.display = 'none';
 
         var fun = document.getElementById('funList');
 
-        if (isSave)
-            onSaveFunction(fun);
-        while (fun.hasChildNodes()) {
-            fun.removeChild(fun.lastChild);
+        if (isSave) {
+            if (onSaveFunction(fun)) {
+                while (fun.hasChildNodes() && fun.lastChild.id !== 'codeEditor') {
+                    fun.removeChild(fun.lastChild);
+                }
+                e.style.display = 'none';
+            }
+
+        } else {
+            e.style.display = 'none';
         }
     }
-    else
+    else {
         e.style.display = 'block';
+        document.getElementById('funName').value = window.JavaGenerator
+            .getFunctionName(window.ProjectManager.getCurrentActivy().id);
+    }
 }
 
 function removeExtraRow(e) {
