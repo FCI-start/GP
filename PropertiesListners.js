@@ -57,6 +57,8 @@
     visibility.addEventListener('change', visibiliyChange, false);
     backgroundColor.addEventListener('input', backgroundChange, false);
 
+    onClick.addEventListener('change', onClickChange, false);
+
 
     function changeObjWidth() {
         var htmlObj = window.curruntlyHtmlObjectSelected;
@@ -175,5 +177,10 @@
         htmlObj.style.backgroundColor = color;
     }
 
+    function onClickChange() {
+        var htmlObj = window.curruntlyHtmlObjectSelected;
+        var xmlObj = window.utiles.arr[htmlObj._id];
+        xmlObj.onClick = onClick.value;
+    }
 
 })();

@@ -132,14 +132,14 @@
         background.value = xmlObject.background;
         onClick.value = xmlObject.onClick;
 
-        if(objectType == "Button" || objectType == "TextView"){
+        if (objectType == "Button" || objectType == "TextView") {
             widget_text.value = xmlObject.text;
             font_family.value = xmlObject.fontFamily;
             text_size.value = xmlObject.textSize;
             text_color.value = xmlObject.textColor;
 
-            for(var style in xmlObject.textStyle){
-                switch (xmlObject.textStyle){
+            for (var style in xmlObject.textStyle) {
+                switch (xmlObject.textStyle) {
                     case "Bold":
                         bold.checked = true;
                         break;
@@ -156,98 +156,98 @@
                 }
             }
 
-        }else if(objectType == "EditText"){
+        } else if (objectType == "EditText") {
             inputType.value = xmlObject.inputType;
             hint.value = xmlObject.hint;
             singleLine.checked = xmlObject.singleLine;
-        }else if(objectType == "ImageView"){
+        } else if (objectType == "ImageView") {
             src.value = xmlObject.src;
             scaleType.value = xmlObject.scaleType;
             adjustViewBounds.checked = xmlObject.adjustViewBounds;
         }
     }
 
-/*
-    function setPropertiestoObject(htmlObject) {
+    /*
+     function setPropertiestoObject(htmlObject) {
 
-        var id = htmlObject._id;
-        var type = htmlObject._innerText;
+     var id = htmlObject._id;
+     var type = htmlObject._innerText;
 
-        //  Assign Basic class
-        var idProperty = document.getElementById("id_text");
-        var widthProperty = document.getElementById("layout_width");
-        var heightProperty = document.getElementById("layout_height");
-        var margins = [document.getElementById("margin_top").value,
-            document.getElementById("margin_left").value,
-            document.getElementById("margin_buttom").value,
-            document.getElementById("margin_right").value];
+     //  Assign Basic class
+     var idProperty = document.getElementById("id_text");
+     var widthProperty = document.getElementById("layout_width");
+     var heightProperty = document.getElementById("layout_height");
+     var margins = [document.getElementById("margin_top").value,
+     document.getElementById("margin_left").value,
+     document.getElementById("margin_buttom").value,
+     document.getElementById("margin_right").value];
 
-        var paddings = [document.getElementById("padding_top").value,
-            document.getElementById("padding_left").value,
-            document.getElementById("padding_buttom").value,
-            document.getElementById("padding_right").value];
+     var paddings = [document.getElementById("padding_top").value,
+     document.getElementById("padding_left").value,
+     document.getElementById("padding_buttom").value,
+     document.getElementById("padding_right").value];
 
-        var visibility = document.getElementById("visibility");
-        var background = document.getElementById("background").value;
-        var onClick = document.getElementById("onClick").value;
+     var visibility = document.getElementById("visibility");
+     var background = document.getElementById("background").value;
+     var onClick = document.getElementById("onClick").value;
 
-        var orientation = document.getElementById("orientation");
+     var orientation = document.getElementById("orientation");
 
-        var widget_text = document.getElementById("widget_text");
-        var font_family = document.getElementById("font_family").value;
-        var type_face = document.getElementById("type_face").value;
-        var text_size = document.getElementById("text_size").value;
-        var text_color = document.getElementById("text_color");
-        var bold = document.getElementById("bold");
-        var italic = document.getElementById("italic");
-        var all_caps = document.getElementById("all_caps");
-
-
-        var inputType = document.getElementById("inputType").value;
-        var hint = document.getElementById("hint");
-        var singleLine = document.getElementById("singleLine");
+     var widget_text = document.getElementById("widget_text");
+     var font_family = document.getElementById("font_family").value;
+     var type_face = document.getElementById("type_face").value;
+     var text_size = document.getElementById("text_size").value;
+     var text_color = document.getElementById("text_color");
+     var bold = document.getElementById("bold");
+     var italic = document.getElementById("italic");
+     var all_caps = document.getElementById("all_caps");
 
 
-        var src = document.getElementById("src");
-        var scaleType = document.getElementById("scaleType").value;
-        var adjustViewBounds = document.getElementById("adjustViewBounds");
+     var inputType = document.getElementById("inputType").value;
+     var hint = document.getElementById("hint");
+     var singleLine = document.getElementById("singleLine");
 
 
-        idProperty.value = id;
-        // if(!arr.hasOwnProperty(id)) {
-
-        //     generateDefault();
-        // }
-        //     previewInProperties();
+     var src = document.getElementById("src");
+     var scaleType = document.getElementById("scaleType").value;
+     var adjustViewBounds = document.getElementById("adjustViewBounds");
 
 
-        this.arr[id] = {};
-        this.arr[id].type = type;
-        this.arr[id].id = "@+id/" + id;
-        this.arr[id].layout_width = getValueFromSelectList(widthProperty);
-        this.arr[id].layout_height = getValueFromSelectList(heightProperty);
-        this.arr[id].layout_margin_top = margins[0];
-        this.arr[id].layout_margin_left = margins[1];
-        this.arr[id].layout_margin_buttom = margins[2];
-        this.arr[id].layout_margin_right = margins[3];
+     idProperty.value = id;
+     // if(!arr.hasOwnProperty(id)) {
 
-        this.arr[id].layout_padding_top = paddings[0];
-        this.arr[id].layout_padding_left = paddings[1];
-        this.arr[id].layout_padding_buttom = paddings[2];
-        this.arr[id].layout_padding_right = paddings[3];
-
-        this.arr[id].visibility = getValueFromSelectList(visibility);
-        this.arr[id].background = background;
-        this.arr[id].onClick = onClick;
+     //     generateDefault();
+     // }
+     //     previewInProperties();
 
 
-        for (var it in arr[id])
-            if (arr[id][it] == 'none')delete arr[id][it];
+     this.arr[id] = {};
+     this.arr[id].type = type;
+     this.arr[id].id = "@+id/" + id;
+     this.arr[id].layout_width = getValueFromSelectList(widthProperty);
+     this.arr[id].layout_height = getValueFromSelectList(heightProperty);
+     this.arr[id].layout_margin_top = margins[0];
+     this.arr[id].layout_margin_left = margins[1];
+     this.arr[id].layout_margin_buttom = margins[2];
+     this.arr[id].layout_margin_right = margins[3];
 
-        return this.arr[id];
+     this.arr[id].layout_padding_top = paddings[0];
+     this.arr[id].layout_padding_left = paddings[1];
+     this.arr[id].layout_padding_buttom = paddings[2];
+     this.arr[id].layout_padding_right = paddings[3];
 
-    }
-*/
+     this.arr[id].visibility = getValueFromSelectList(visibility);
+     this.arr[id].background = background;
+     this.arr[id].onClick = onClick;
+
+
+     for (var it in arr[id])
+     if (arr[id][it] == 'none')delete arr[id][it];
+
+     return this.arr[id];
+
+     }
+     */
 
     function getValueFromSelectList(select) {
         return select.value;
@@ -341,18 +341,24 @@
         }
     }
 
-    function updateOnClickListFunctions() {
-        while (onClick.lastChild && onClick.lastChild.value!=='none'){
+    function updateOnClickListFunctions(funName) {
+
+        while (onClick.lastChild && onClick.lastChild.value !== 'none') {
             onClick.removeChild(onClick.lastChild);
         }
 
         var allFunctionNames = window.JavaGenerator.getAllActionFunctionNames();
-        for(var i = 0; i<allFunctionNames.length; i++){
+        for (var i = 0; i < allFunctionNames.length; i++) {
             var newOption = document.createElement("option");
             newOption.value = allFunctionNames[i];
             newOption.innerHTML = allFunctionNames[i];
             onClick.appendChild(newOption);
         }
+
+        onClick.value = funName;
+        var htmlObj = window.curruntlyHtmlObjectSelected;
+        var xmlObj = window.utiles.arr[htmlObj._id];
+        xmlObj.onClick = funName
     }
 
     window.utiles = window.utiles || {};
