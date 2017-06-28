@@ -432,7 +432,6 @@ ul {
     background: gainsboro;
 }
 
-
 #popupBoxConfig {
     top: 0;
     left: 0;
@@ -612,4 +611,15 @@ ul {
 
 #radioCreator {
     display: none;
+}
+
+#editor {
+    width: auto;
+    height: 180px;
+    margin: 5px;
+}
+
+#funName {
+    margin: 5px;
+    text-align: center;
 }

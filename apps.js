@@ -181,7 +181,7 @@ var DragDrop =
                     window.ProjectManager.generateMainLayout(newObj._id);
                 }
                 else {
-                    toggle_visibility('popupBoxOnePosition');
+                    window.toggle_visibility('popupBoxOnePosition');
                 }
             });
             DragDrop.selected.style.left = DragDrop.selected.beginningPositionLeft + 'px';

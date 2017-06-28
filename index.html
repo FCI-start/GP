@@ -523,7 +523,7 @@
     <div class="popupBoxWrapper">
         <div class="popupBoxContent">
             <h3>Create function</h3>
-
+            <input id="funName" type="text" placeholder="function name" value="">
             <div id="functionWrpper">
                 <div id="funComponent">
                     components
@@ -581,11 +581,32 @@
                 <div id="funLines">
                     function actions
                     <ul id="funList">
-
+                        <div id="codeEditor">
+                            <div id="editor">String str="Hello world!";</div>
+                            <script src="./ace-builds/src-noconflict/ace.js" type="text/javascript"
+                                    charset="utf-8"></script>
+                            <script>
+                                var editor = ace.edit("editor");
+                                editor.setTheme("ace/theme/monokai");
+                                editor.getSession().setMode("ace/mode/java");
+                                window.codeEditor = editor;
+                            </script>
+                        </div>
                     </ul>
                 </div>
             </div>
 
+            trigger when:
+            <input id="append_none" type="radio" name="appendFunction" value="none" checked>
+            <label for="append_none">none</label>
+            <input id="append_create" type="radio" name="appendFunction" value="onCreate">
+            <label for="append_create">onCreate</label>
+            <input id="append_start" type="radio" name="appendFunction" value="onStart">
+            <label for="append_start">onStart</label>
+            <input id="append_stop" type="radio" name="appendFunction" value="onStop">
+            <label for="append_start">onStop</label>
+            <br>
+            <br>
             <a id="savePopup" href="javascript:void(0)"
                onclick="toggle_visibility('popupBoxOnePosition',true);">Save</a>
             <a id="closePopup" href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition');">Close</a>
