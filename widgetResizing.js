@@ -9,10 +9,6 @@
 
         element.addEventListener('mousemove', changeCursor, false);
         element.addEventListener('mousedown', changeWidth, false);
-        element.addEventListener('mouseleave', function (e) {
-            element.style.cursor = "Move";
-            element.direct = "Move";
-        }, false);
 
         function changeCursor(e) {
 
@@ -45,9 +41,14 @@
             element.originalHeight = parseInt(window.getComputedStyle(element).height);
 
 
+            console.log("operation","button_mouse_move");
+
             document.addEventListener('mousemove', startResizing, false);
             document.addEventListener('mouseup', function (e) {
+                element.addEventListener('mousemove', changeCursor, false);
                 document.removeEventListener('mousemove', startResizing, false);
+                element.style.cursor = "Move";
+                element.direct = "Move";
             }, false);
         }
 
@@ -55,10 +56,25 @@
         function startResizing(e) {
             e.stopPropagation();
 
+            console.log(e.clientX , element.originalX , element.originalWidth);
+            console.log(element.originalWidth);
+
+            element.removeEventListener('mousemove', changeCursor, false);
+
             if (element.direct == "DownRight") {
                 console.log("DownRight");
-                element.style.width = e.clientX - element.originalX + element.originalWidth + "px";
-                element.style.height = e.clientY - element.originalY + element.originalHeight + "px";
+                if (e.clientX+10> element.originalX)
+                {
+                    console.log("Bigger");
+                    element.style.width = e.clientX - element.originalX + element.originalWidth + "px";
+                    element.style.height = e.clientY - element.originalY + element.originalHeight + "px";
+                }
+                else
+                {
+                    console.log("Smaller");
+                    element.style.width = e.clientX - (element.originalX - element.originalWidth) + "px";
+                    element.style.height = e.clientY - (element.originalY - element.originalHeight) + "px";
+                }
             }
             else if (element.direct == "Right") {
                 console.log("Right");
@@ -79,7 +95,7 @@
             //console.log(element, element.parentNode, mainListElement.children.length);
             element.parentNode.style.width = window.getComputedStyle(element).width;
             element.parentNode.style.height = window.getComputedStyle(element).height;
-            element.style.position = "absolute";
+            element.style.position = "relative";
 
             var ul = element.parentNode.parentNode;
             //console.log(element.parentNode.parentNode);

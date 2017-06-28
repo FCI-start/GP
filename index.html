@@ -166,20 +166,19 @@
                 </td>
                 <td>
                     <select name="visivility" id="visibility">
-                        <option class="default" value="none" selected>none</option>
-                        <option value="visible">visible</option>
-                        <option value="invisible">invisible</option>
-                        <option value="gone">gone</option>
+                        <option class="default" value="visible" selected>Visible</option>
+                        <option value="invisible">Invisible</option>
+                        <option value="gone">Gone</option>
                     </select>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <label for="background">background</label>
+                    <label for="background_color">background color</label>
                 </td>
                 <td>
-                    <input type="text" id="background" value="none">
+                    <input type="color" id="background_color">
                 </td>
             </tr>
 
@@ -188,7 +187,9 @@
                     <label for="onClick">onClick</label>
                 </td>
                 <td>
-                    <input type="text" id="onClick" value="none">
+                    <select id="onClick" name="onClick">
+                        <option class="default" value="none" selected>none</option>
+                    </select>
                 </td>
             </tr>
 
@@ -603,6 +604,7 @@
 <script src="ResizableElement.js"></script>
 <script src="widgetResizing.js"></script>
 <script src="widgetProperties.js"></script>
+<script src="PropertiesListners.js"></script>
 <script src="popup_actions/PopupFunctionMove.js"></script>
 <script src="popup_actions/PopupFunction.js"></script>
 <script src="apps.js"></script>

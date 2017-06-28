@@ -2,8 +2,6 @@
  * Created by Allam on 2/27/2017.
  */
 (function () {
-
-    var draggedItem;
     var right_div = document.getElementById('right_div');
     var linearLayoutSection = document.getElementById('linear_layout');
     var basicsSecion = document.getElementById('basics_class');
@@ -27,7 +25,7 @@
     function selectItem(HtmlObj) {
         window.curruntlyHtmlObjectSelected = HtmlObj;
 
-        HtmlObj.style.border = "thin solid #0000FF";
+        // HtmlObj.style.border = "thin solid #0000FF";
         updatePropertiesView(HtmlObj);
         var foundXMLObject = window.utiles.arr[HtmlObj._id];
         if(!foundXMLObject){
@@ -122,7 +120,6 @@
     }
 
     window.properties = window.properties || {};
-    window.properties.draggedItem = draggedItem;
     window.properties.addWidgetEventListner = addWidgetEventListner;
     window.properties.selectItem = selectItem;
 })();

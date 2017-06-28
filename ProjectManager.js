@@ -42,6 +42,8 @@
             //layout.style.backgroundColor="red";
             layout.className = "WorkspaceContainer";
             layout.id = file;
+            layout.style.width = "100%";
+            layout.style.height = "100%";
             document.getElementById('mobielDev').appendChild(layout);
             createOptionItem(file);
             handleXMLTree(layout);

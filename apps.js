@@ -146,7 +146,10 @@ var DragDrop =
         else if (!DragDrop.selected._id) {
             // console.log(window.ProjectManager.getCurrentActivy());
             var parent = window.LayoutManager.getParent(event.clientX, event.clientY, window.ProjectManager.getCurrentActivy());
+            // window.curruntlyHtmlObjectSelected = parent;
             var listItem = document.createElement("li");
+            listItem.style.width = "100px";
+            listItem.style.height = "35px";
 
             var newObj = document.createElement(DragDrop.selected.nodeName);
             newObj.style.width = window.getComputedStyle(DragDrop.selected).width;
@@ -154,7 +157,9 @@ var DragDrop =
             newObj.style.backgroundColor = window.getComputedStyle(DragDrop.selected).backgroundColor;
             newObj.style.border = window.getComputedStyle(DragDrop.selected).border;
             newObj.orientation = "horizontal";
-
+            newObj.style.position = "relative";
+            newObj.style.width = "100%";
+            newObj.style.height = "100%";
             listItem.appendChild(newObj);
             //window.properties.addWidgetEventListner(newObj);
 

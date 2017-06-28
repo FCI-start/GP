@@ -13,24 +13,6 @@
 
     //****************************** test change in width and hieght ***************************----------------------
 
-    var widthProperty = document.getElementById("layout_width");
-    var heightProperty = document.getElementById("layout_height");
-    widthProperty.addEventListener("change", changeObjWidth, false);
-    heightProperty.addEventListener("change", changeObjHeight, false);
-
-    function changeObjWidth(){
-        var htmlObj = window.curruntlyHtmlObjectSelected;
-        var xmlObj = window.utiles.arr[htmlObj._id];
-        xmlObj.layout_width = widthProperty.value;
-        htmlObj.style.width = htmlObj.parentNode.parentElement.clientWidth + 'px';
-    }
-    function changeObjHeight(){
-        var htmlObj = window.curruntlyHtmlObjectSelected;
-        var xmlObj = window.utiles.arr[htmlObj._id];
-        xmlObj.layout_height = heightProperty.value;
-        htmlObj.style.height = htmlObj.parentNode.parentElement.clientHeight + 'px';
-    }
-
     function generateGroupLayout(width, heigh, id, type) {
         this.arr[id] = {};
         this.arr[id].type = type;
@@ -50,10 +32,16 @@
         this.arr[id].id = "@+id/" + id;
         this.arr[id].layout_width = "wrap_content";
         this.arr[id].layout_height = "wrap_content";
-        this.arr[id].layout_margin = [0, 0, 0, 0];
-        this.arr[id].layout_padding = [0, 0, 0, 0];
+        this.arr[id].layout_marginTop = 0;
+        this.arr[id].layout_marginLeft = 0;
+        this.arr[id].layout_marginButton = 0;
+        this.arr[id].layout_marginRight = 0;
+        this.arr[id].paddingTop = 0;
+        this.arr[id].paddingLeft = 0;
+        this.arr[id].paddingButton = 0;
+        this.arr[id].paddingRight = 0;
         this.arr[id].visibility = "visible";
-        this.arr[id].background = "none";
+        this.arr[id].background = "#FFFFFF";
         this.arr[id].onClick = "none";
 
 
@@ -87,18 +75,19 @@
         var idProperty = document.getElementById("id_text");
         var widthProperty = document.getElementById("layout_width");
         var heightProperty = document.getElementById("layout_height");
-        var margins = [document.getElementById("margin_top"),
-            document.getElementById("margin_left"),
-            document.getElementById("margin_buttom"),
-            document.getElementById("margin_right")];
 
-        var paddings = [document.getElementById("padding_top"),
-            document.getElementById("padding_left"),
-            document.getElementById("padding_buttom"),
-            document.getElementById("padding_right")];
+        var marginTop = document.getElementById("margin_top");
+        var marginLeft = document.getElementById("margin_left");
+        var marginButton = document.getElementById("margin_buttom");
+        var marginRight = document.getElementById("margin_right");
+
+        var paddingTop = document.getElementById("padding_top");
+        var paddingLeft = document.getElementById("padding_left");
+        var paddingButton = document.getElementById("padding_buttom");
+        var paddingRight = document.getElementById("padding_right");
 
         var visibility = document.getElementById("visibility");
-        var background = document.getElementById("background");
+        var background = document.getElementById("background_color");
         var onClick = document.getElementById("onClick");
 
         var orientation = document.getElementById("orientation");
@@ -128,12 +117,16 @@
         console.log(xmlObject.layout_width);
         widthProperty.value = xmlObject.layout_width;
         heightProperty.value = xmlObject.layout_height;
-        for (var i =0; i<4; i++){
-            margins[i].value = xmlObject.layout_margin[i];
-        }
-        for (var i =0; i<4; i++){
-            paddings[i].value = xmlObject.layout_padding[i];
-        }
+
+        marginTop.value = xmlObject.layout_marginTop;
+        marginLeft.value = xmlObject.layout_marginLeft;
+        marginButton.value = xmlObject.layout_marginButton;
+        marginRight.value = xmlObject.layout_marginRight;
+
+        paddingTop.value = xmlObject.paddingTop;
+        paddingLeft.value = xmlObject.paddingLeft;
+        paddingButton.value = xmlObject.paddingButton;
+        paddingRight.value = xmlObject.paddingRight;
 
         visibility.value = xmlObject.visibility;
         background.value = xmlObject.background;
