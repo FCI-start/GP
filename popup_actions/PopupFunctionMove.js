@@ -46,8 +46,11 @@ function start() {
                 var off = document.getElementById('funLines').getBoundingClientRect();
                 var mouseX = event.clientX;
                 var mouseY = event.clientY;
-               // console.log(off);
-                if (mouseX >= off.left && mouseX <= off.right && mouseY >= off.top && mouseY <= off.bottom) {
+                // console.log(off);
+                var elems = event.target;
+                var e = elems.getElementsByTagName("select")
+                if (mouseX >= off.left && mouseX <= off.right && mouseY >= off.top && mouseY <= off.bottom
+                    && (e.length === 0 || e[0].options.length > 0)) {
                     //create copy
                     var dive = document.createElement('div');
                     dive.classList.add(self.element.className);

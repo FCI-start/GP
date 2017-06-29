@@ -166,8 +166,10 @@ function toggle_config_visibility(id, isSave) {
         }
 
     }
-    else
+    else {
         e.style.display = 'block';
+        jsonInput(document.getElementById('jsonEx'));
+    }
 }
 
 //handel [query input design]

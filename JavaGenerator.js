@@ -20,7 +20,7 @@
             classname: 'public class ' + activity_name.toUpperCase() + ' extends',
             extends: 'AppCompatActivity',
             implements: '',
-            members: [/*{access: 'private', type: 'Button', id: 'button1'}*/],
+            members: {},
             functions: {
                 'onCreate': {
                     isOverride: true,
@@ -76,9 +76,9 @@
 
         out += ' {\n\n'
 
-        for (var i = 0; i < javaObj.members.length; i++) {
-            var ob = javaObj.members[i];
-            out += ob.access + ' ' + ob.type + ' ' + ob.id + ';\n'
+        for (var i in javaObj.members) {
+            var type = javaObj.members[i];
+            out += 'private ' + type + ' ' + i + ';\n'
         }
 
         for (var fn in javaObj.functions) {
@@ -119,7 +119,7 @@
             activities[activity_name].objects[activity.id + 'Holder'].constructor.push(id + '=(' + type + ') itemView.findViewById(R.id.' + id + ');');
         } else {
             activities[activity_name].imports[importline] = true;
-            activities[activity_name].members.push(obj);
+            activities[activity_name].members[id] = type;
             activities[activity_name].functions.onCreate.content += '\n\t' + id + '=(' + type + ') findViewById(R.id.' + id + ');';
         }
 
@@ -424,6 +424,26 @@
         return list;
     }
 
+    function getActivityMembers(activityId) {
+        var mems = activities[activityId].members;
+        var mbs = {};
+        for (var i in mems) {
+            if (mems[i] !== 'RecyclerView' && mems[i] !== 'ImageView') {
+                mbs[i] = mems[i];
+            }
+        }
+        console.log(mbs);
+        return mbs;
+    }
+
+    function getActivitiesNames() {
+        var l = [];
+        for (i in activities) {
+            l.push(i);
+        }
+        return l;
+    }
+
 
     window.JavaGenerator = window.JavaGenerator || {};
     window.JavaGenerator.printJavaActivity = printJavaActivity;
@@ -440,5 +460,7 @@
     window.JavaGenerator.isValdFunctionName = isValdFunctionName;
     window.JavaGenerator.addCodeFunction = addCodeFunction;
     window.JavaGenerator.getAllActionFunctionNames = getAllActionFunctionNames;
+    window.JavaGenerator.getActivityMembers = getActivityMembers;
+    window.JavaGenerator.getActivitiesNames = getActivitiesNames;
 
 })();
