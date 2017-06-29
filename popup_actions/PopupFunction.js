@@ -101,6 +101,42 @@ function toggle_visibility(id, isSave) {
         e.style.display = 'block';
         document.getElementById('funName').value = window.JavaGenerator
             .getFunctionName(window.ProjectManager.getCurrentActivy().id);
+        addOptionsToSels();
+    }
+}
+
+function addOptionsToSels() {
+    var selectFrom = document.getElementsByClassName('selectFrom')[0];
+    var setValueTo = document.getElementsByClassName('setValueTo')[0];
+    var setValueFrom = document.getElementsByClassName('setValueFrom')[0];
+    clear(selectFrom);
+    clear(setValueTo);
+    clear(setValueFrom);
+
+    var activityId = window.ProjectManager.getCurrentActivy().id;
+    var members = window.JavaGenerator.getActivityMembers(activityId);
+    for (var m in members) {
+        var op = document.createElement('option');
+        op.innerHTML = m;
+        setValueFrom.appendChild(op.cloneNode(true));
+        selectFrom.appendChild(op.cloneNode(true));
+        setValueTo.appendChild(op.cloneNode(true));
+    }
+
+
+    var activitySel = document.getElementsByClassName('activities')[0];
+    clear(activitySel);
+    var listActivities = window.JavaGenerator.getActivitiesNames();
+    for (var z = 0; z < listActivities.length; z++) {
+        var op = document.createElement('option');
+        if (listActivities[z] !== activityId);
+        op.innerHTML = listActivities[z];
+    }
+}
+
+function clear(node) {
+    while (node.hasChildNodes()) {
+        node.removeChild(node.lastChild);
     }
 }
 

@@ -186,7 +186,8 @@ var DragDrop =
                     window.ProjectManager.generateMainLayout(newObj._id);
                 }
                 else {
-                    window.toggle_visibility('popupBoxOnePosition');
+                    if (window.ProjectManager.getCurrentActivy().id.indexOf('RecyclerView') === -1)
+                        window.toggle_visibility('popupBoxOnePosition');
                 }
             });
             DragDrop.selected.style.left = DragDrop.selected.beginningPositionLeft + 'px';
@@ -198,7 +199,7 @@ var DragDrop =
 
 
             var handleJava = function () {
-              //  console.log('current=',window.ProjectManager.getCurrentActivy());
+                //  console.log('current=',window.ProjectManager.getCurrentActivy());
                 window.JavaGenerator.addMember(window.ProjectManager.getCurrentActivy(), 'private', newObj._innerText, newObj._id, newObj._import);
             }();
 
