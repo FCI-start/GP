@@ -112,8 +112,34 @@
     }
 
     function getAllCode() {
-        window.NetworkHandler.printModelsInterfaces();
-        window.JavaGenerator.printJavaActivities();
+        var allFiles = {};
+        var models = window.NetworkHandler.printModelsInterfaces();
+        for (var i in models) {
+            allFiles[i] = models;
+        }
+        var activities = window.JavaGenerator.printJavaActivities();
+        for (var i in activities) {
+            allFiles[i] = activities[i];
+        }
+
+        var xmls = window.tree.getFiles();
+        for (var i in xmls) {
+            allFiles[i] = xmls[i];
+        }
+        console.log(allFiles);
+    }
+
+    function removeElement(viewId) {
+        var activityId, recyclerId;
+        var cur = window.ProjectManager.getCurrentActivy();
+        if (cur.id.indexOf('RecyclerView') !== -1) {
+            activityId = cur.parentActivity;
+            recyclerId = cur.id;
+        } else {
+            activityId = cur.id;
+        }
+        window.tree.removeView(activityId, viewId);
+        window.JavaGenerator.removeMember(activityId, viewId, recyclerId);
     }
 
     window.ProjectManager = window.ProjectManager || {};
@@ -122,6 +148,7 @@
     window.ProjectManager.generateMainLayout = generateMainLayout;
     window.ProjectManager.getCurrentActivy = getCurrentActivy;
     window.ProjectManager.getAllCode = getAllCode;
+    window.ProjectManager.removeElement = removeElement;
 
 
 })();
