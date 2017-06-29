@@ -12,14 +12,18 @@ div#ComponentContainer {
     border: 1px solid black;
     padding: 10px;
     float: left;
+    /*sasdsad*/
 }
+
 
 div#ComponentContainer #LinearLayout, div#ComponentContainer #ListViewComponent {
     width: 80px;
-    min-height: 70px;
-    border: 1px dashed gray;
+    height: 35px;
+    border: 1px solid gray;
     position: absolute;
     background: rgba(190, 255, 241, 0.51);
+    padding: 0px;
+    margin: 0px;
 }
 
 div#ComponentContainer #ListViewComponent {
@@ -138,6 +142,13 @@ div#ComponentContainer table {
     width: 90%;
 }
 
+div#ComponentContainer #ComponentTable tr td
+{
+    display:block;
+    float: left;
+    width: 45%;
+}
+
 div#ComponentContainer div {
     width: 100%;
     padding: 5px;
@@ -149,9 +160,8 @@ div#ComponentContainer div#divtextview label {
     display: block;
     width: 80px;
     text-align: center;
-    height: 25px;
-    margin-left: 10px;
-    margin-top: 6px;
+    height: 35px;
+    border: 1px solid #ddd9cb;
 }
 
 div#ComponentContainer div#divButton button, div ul.WorkspaceContainer li button {
@@ -161,19 +171,16 @@ div#ComponentContainer div#divButton button, div ul.WorkspaceContainer li button
 }
 
 div#ComponentContainer div#divedittext input {
-    width: 100px;
-}
-
-div#ComponentContainer div#divlistview div {
-    border: dashed 1px #000;
-    width: 100px;
-    text-align: center;
+    width: 80px;
+    height: 35px;
 }
 
 div#ComponentContainer div#divimageview div {
     border: solid 1px #000;
-    width: 100px;
+    width: 80px;
+    height: 35px;
     text-align: center;
+    padding: 0px;
 }
 
 /*Right hand side properties*/
