@@ -8,6 +8,8 @@ var DragDrop =
     selected: this,
     WorkspaceDev: null,
 
+
+
     init: function (Element) {
 
         this.Element = Element;  //capture the event you pass as parameter
@@ -476,7 +478,7 @@ var DragDrop =
             boxLeft = parseInt(boxStyle.left, 10);
             box.style.left = boxLeft + step + "px";
         }
-    },
+    }
 }
 
 

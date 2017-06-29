@@ -8,6 +8,8 @@
 
 function initComponents() {
 
+    window.utiles2.deleteElemet();
+
 
     var mybutton = document.getElementById('mybutton');
     mybutton._innerText = "Button";

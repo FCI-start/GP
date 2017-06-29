@@ -379,8 +379,11 @@
 
 
     function printJavaActivities() {
+        var acts = {};
         for (i in activities)
-            console.log(printJavaActivity(i));
+            acts[i.toUpperCase() + '.java'] = printJavaActivity(i);
+        //console.log(printJavaActivity(i));
+        return acts;
     }
 
 
@@ -444,6 +447,23 @@
         return l;
     }
 
+    function removeMember(activityId, viewId, recyclerId) {
+        if (recyclerId) {
+            var holder = activities[activityId].objects[recyclerId + 'Holder'];
+            delete holder.members[viewId];
+            for (var j = 0; j < holder.constructor.length; j++) {
+                if (holder.constructor[j].indexOf(viewId) !== -1) {
+                    holder.constructor[j].splice(j, 1);
+                    break;
+                }
+            }
+        } else {
+            activities[activityId].functions['onCreate'].content.replace('\n\t' + viewId + '=(' + activities[activityId].members[viewId] + ') findViewById(R.id.' + viewId + ');','');
+            delete activities[activityId].members[viewId];
+
+        }
+    }
+
 
     window.JavaGenerator = window.JavaGenerator || {};
     window.JavaGenerator.printJavaActivity = printJavaActivity;
@@ -461,6 +481,6 @@
     window.JavaGenerator.addCodeFunction = addCodeFunction;
     window.JavaGenerator.getAllActionFunctionNames = getAllActionFunctionNames;
     window.JavaGenerator.getActivityMembers = getActivityMembers;
-    window.JavaGenerator.getActivitiesNames = getActivitiesNames;
+    window.JavaGenerator.removeMember = removeMember;
 
 })();
