@@ -8,6 +8,8 @@ var DragDrop =
     selected: this,
     WorkspaceDev: null,
 
+
+
     init: function (Element) {
 
         this.Element = Element;  //capture the event you pass as parameter
@@ -477,6 +479,18 @@ var DragDrop =
             box.style.left = boxLeft + step + "px";
         }
     },
+    deleteElemet: function()
+    {
+        document.addEventListener('keydown',function (e) {
+            if(e.keyCode==46)
+            {
+                //delete from design
+                if (e.keyCode == 46) {
+                    window.ProjectManager.getCurrentActivy().removeChild(curruntlyHtmlObjectSelected.parentNode)
+                }
+            }
+        });
+    }
 }
 
 
