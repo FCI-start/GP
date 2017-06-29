@@ -84,9 +84,11 @@
             customWidthProperty.style.display = "block";
         }
 
+        calculateWidthMatchParent();
     }
 
     function changeObjHeight() {
+        calculateHeightMatchParent();
         var htmlObj = window.curruntlyHtmlObjectSelected;
         var htmlObjParent = htmlObj.parentNode;
         var xmlObj = window.utiles.arr[htmlObj._id];
@@ -99,12 +101,13 @@
             htmlObj.style.display = "inline-block";
         } else if (height == "match_parent") {
             htmlObj.style.height = "100%";
-            htmlObjParent.style.height = htmlObj.parentNode.parentElement.clientHeight + 'px';
+            htmlObjParent.style.height = htmlObj.parentNode.parentElement.clientWidth + 'px';
             customHeightProperty.style.display = "none";
         } else {
             htmlObj.style.height = "100%";
             customHeightProperty.style.display = "block";
         }
+        calculateHeightMatchParent();
     }
 
     function customWidthChange() {
@@ -127,22 +130,28 @@
 
     function calculateHeightMatchParent() {
         var htmlObj = window.curruntlyHtmlObjectSelected;
-        var htmlObjParent = htmlObj.parentNode.parentElement;
-        var parentHeight = htmlObjParent.getBoundingClientRect().height;
-        var htmlObjTop = htmlObj.getBoundingClientRect().top;
-        var htmlObjarentTop = htmlObjParent.getBoundingClientRect().top;
-        var expectedHeight = parentHeight - (htmlObjarentTop - htmlObjTop);
-        return expectedObjHeight;
+        var htmlObjParent = htmlObj.parentNode.parentNode;
+        var parentBottom = htmlObjParent.offsetTop + htmlObjParent.offsetHeight;
+        var htmlObjBottom = htmlObj.offsetTop + htmlObj.offsetHeight;
+        var diff = htmlObjBottom - parentBottom;
+        console.log(diff);
+
+        if (diff > 0) {
+            htmlObj.style.height = htmlObj.offsetHeight - diff +  'px';
+        }
     }
 
     function calculateWidthMatchParent() {
         var htmlObj = window.curruntlyHtmlObjectSelected;
-        var htmlObjParent = htmlObj.parentNode.parentElement;
-        var parentWidth = htmlObjParent.getBoundingClientRect().width;
-        var htmlObjleft = htmlObj.getBoundingClientRect().left;
-        var htmlObjParentLeft = htmlObjParent.getBoundingClientRect().left;
-        var expectedObjWidth = parentHeight - (htmlObjarentTop - htmlObjTop);
-        return expectedObjWidth;
+        var htmlObjParent = htmlObj.parentNode.parentNode;
+        var parentRight = htmlObjParent.offsetLeft + htmlObjParent.offsetWidth;
+        var htmlObjRight = htmlObj.offsetLeft + htmlObj.offsetWidth;
+        var diff = htmlObjRight - parentRight;
+        console.log(diff);
+
+        if (diff > 0) {
+            htmlObj.style.width = htmlObj.offsetWidth - diff +  'px';
+        }
     }
 
 

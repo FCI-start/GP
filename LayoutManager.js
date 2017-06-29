@@ -35,32 +35,32 @@
     }
 
     function wrapingContent(element, parent) {
-        var elemParent = parent;
-        var ElemRect = element.getBoundingClientRect();
-        var ParentRect = elemParent.getBoundingClientRect();
-
-
-        if (ElemRect.top - ParentRect.top + "px" != element.style.borderTopWidth && parent.orientation == "horizontal") {
-            console.log(parent.offsetWidth, element.offsetWidth);
-            parent.style.width = parent.offsetWidth + element.offsetWidth + 'px';
-        }
-
-        //alert(ElemRect.left-ParentRect.left+"px    " + element.style.borderLeftWidth);
-        if (parent.orientation == "vertical" && parent.children.length > 1) {
-
-            console.log(parent.offsetHeight, element.offsetHeight);
-            parent.style.height = parent.offsetHeight + element.offsetHeight + 'px';
-        }
-
-
-        console.log(parent, parent.children.length == 1)
-
-        if (parent.children.length == 1) {
-            if (parent.orientation == "horizontal")
-                parent.style.width = parent.offsetWidth + 20 + 'px';
-            else
-                parent.style.height = parent.offsetHeight + 20 + 'px';
-        }
+        // var elemParent = parent;
+        // var ElemRect = element.getBoundingClientRect();
+        // var ParentRect = elemParent.getBoundingClientRect();
+        //
+        //
+        // if (ElemRect.top - ParentRect.top + "px" != element.style.borderTopWidth && parent.orientation == "horizontal") {
+        //     console.log(parent.offsetWidth, element.offsetWidth);
+        //     parent.style.width = parent.offsetWidth + element.offsetWidth + 'px';
+        // }
+        //
+        // //alert(ElemRect.left-ParentRect.left+"px    " + element.style.borderLeftWidth);
+        // if (parent.orientation == "vertical" && parent.children.length > 1) {
+        //
+        //     console.log(parent.offsetHeight, element.offsetHeight);
+        //     parent.style.height = parent.offsetHeight + element.offsetHeight + 'px';
+        // }
+        //
+        //
+        // console.log(parent, parent.children.length == 1)
+        //
+        // if (parent.children.length == 1) {
+        //     if (parent.orientation == "horizontal")
+        //         parent.style.width = parent.offsetWidth + 20 + 'px';
+        //     else
+        //         parent.style.height = parent.offsetHeight + 20 + 'px';
+        // }
     }
 
 
