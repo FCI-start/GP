@@ -478,18 +478,6 @@ var DragDrop =
             boxLeft = parseInt(boxStyle.left, 10);
             box.style.left = boxLeft + step + "px";
         }
-    },
-    deleteElemet: function()
-    {
-        document.addEventListener('keydown',function (e) {
-            if(e.keyCode==46)
-            {
-                //delete from design
-                if (e.keyCode == 46) {
-                    curruntlyHtmlObjectSelected.parentNode.parentNode.removeChild(curruntlyHtmlObjectSelected.parentNode)
-                }
-            }
-        });
     }
 }
 

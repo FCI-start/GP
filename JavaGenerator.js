@@ -458,8 +458,8 @@
                 }
             }
         } else {
+            activities[activityId].functions['onCreate'].content.replace('\n\t' + viewId + '=(' + activities[activityId].members[viewId] + ') findViewById(R.id.' + viewId + ');','');
             delete activities[activityId].members[viewId];
-            activities[activityId].content.replace('\n\t' + id + '=(' + type + ') findViewById(R.id.' + id + ');','');
 
         }
     }

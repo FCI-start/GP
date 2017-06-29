@@ -8,6 +8,8 @@
 
 function initComponents() {
 
+    window.utiles2.deleteElemet();
+
 
     var mybutton = document.getElementById('mybutton');
     mybutton._innerText = "Button";
@@ -35,13 +37,6 @@ function initComponents() {
     DragDrop.init(mylistview);
     DragDrop.init(myImageview);
     DragDrop.init(LinearLayout);
-
-    DragDrop.deleteElemet(mybutton);
-    DragDrop.deleteElemet(mytextview);
-    DragDrop.deleteElemet(myedittext);
-    DragDrop.deleteElemet(mylistview);
-    DragDrop.deleteElemet(myImageview);
-    DragDrop.deleteElemet(LinearLayout);
 }
 
 window.addEventListener('load', initComponents, false);
