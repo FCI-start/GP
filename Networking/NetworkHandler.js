@@ -30,13 +30,17 @@ function setModel(modelId, strModel) {
 }
 
 function printModelsInterfaces() {
-    for (i in models) {
-        console.log(models[i]);
+    var files = {};
+    for (var i in models) {
+        files[i + '.java'] = models[i];
+        //console.log(models[i]);
     }
 
     for (i in netWorkInterfaces) {
-        console.log(netWorkInterfaces[i]);
+        files[i + '.java'] = netWorkInterfaces[i];
+        //console.log(netWorkInterfaces[i]);
     }
+    return files;
 }
 
 window.NetworkHandler = window.NetworkHandler || {};

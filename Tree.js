@@ -11,9 +11,15 @@ function loadTree() {
     }
 
     function Tree() {
-        this.root = [];
+        this.root = {};
         // this.root = new Node(rootView);
-
+        this.getFiles = function () {
+            var xmls = {};
+            for (var r in this.root) {
+                xmls[r.toLowerCase() + '.xml'] = getXmlFileString(this.root[r]);
+            }
+            return xmls;
+        };
 
         this.removeView = function (activityId, viewId) {
             removeViewId(this.root[activityId], -1, undefined, viewId);
