@@ -73,7 +73,6 @@
 
         if(width == "wrap_content"){
             customWidthProperty.style.display = "none";
-            htmlObj.style.display = "inline-block";
         }else if(width == "match_parent"){
             htmlObjParent.style.width = htmlObj.parentNode.parentElement.clientWidth + 'px';
             customWidthProperty.style.display = "none";
@@ -165,9 +164,12 @@
 
     function paddingTopChange() {
         var htmlObj = window.curruntlyHtmlObjectSelected;
+        var htmlObjParent = htmlObj.parentNode;
         var paddingValue = paddingTop.value;
         var xmlObj = window.utiles.arr[htmlObj._id];
+
         xmlObj.paddingTop = paddingValue;
+        htmlObjParent.paddingTop = paddingValue;
         htmlObj.style.paddingTop = paddingValue + "px";
     }
 
