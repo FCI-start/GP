@@ -35,6 +35,13 @@ function initComponents() {
     DragDrop.init(mylistview);
     DragDrop.init(myImageview);
     DragDrop.init(LinearLayout);
+
+    DragDrop.deleteElemet(mybutton);
+    DragDrop.deleteElemet(mytextview);
+    DragDrop.deleteElemet(myedittext);
+    DragDrop.deleteElemet(mylistview);
+    DragDrop.deleteElemet(myImageview);
+    DragDrop.deleteElemet(LinearLayout);
 }
 
 window.addEventListener('load', initComponents, false);

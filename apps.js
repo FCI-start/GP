@@ -486,7 +486,7 @@ var DragDrop =
             {
                 //delete from design
                 if (e.keyCode == 46) {
-                    window.ProjectManager.getCurrentActivy().removeChild(curruntlyHtmlObjectSelected.parentNode)
+                    curruntlyHtmlObjectSelected.parentNode.parentNode.removeChild(curruntlyHtmlObjectSelected.parentNode)
                 }
             }
         });
