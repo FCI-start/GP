@@ -833,7 +833,10 @@ var JavaHighlightRules = function() {
         "ArrayStoreException|ClassCastException|LinkageError|"+
         "NoClassDefFoundError|ClassNotFoundException|RuntimeException|"+
         "Exception|ThreadDeath|Error|Throwable|System|ClassLoader|"+
-        "Cloneable|Class|CharSequence|Comparable|String|Object"
+        "Cloneable|Class|CharSequence|Comparable|String|Object|"+
+        "EditText|Button|TextView|ImageView|LinearLayout|RecyclerView|" +
+        "Bundle|View|List|ArrayList|LayoutInflater|AppCompatActivity|" +
+        "LinearLayoutManager|ViewGroup"
     );
 
     var keywordMapper = this.createKeywordMapper({
