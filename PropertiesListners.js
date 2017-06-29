@@ -68,15 +68,19 @@
         var htmlObj = window.curruntlyHtmlObjectSelected;
         var htmlObjParent = htmlObj.parentNode;
         var xmlObj = window.utiles.arr[htmlObj._id];
-        var width =  widthProperty.value;
-        xmlObj.layout_width =  width;
+        var width = widthProperty.value;
+        xmlObj.layout_width = width;
 
-        if(width == "wrap_content"){
+        if (width == "wrap_content") {
             customWidthProperty.style.display = "none";
-        }else if(width == "match_parent"){
+            htmlObj.style.width = "";
+            htmlObj.style.display = "inline-block";
+        } else if (width == "match_parent") {
+            htmlObj.style.width = "100%";
             htmlObjParent.style.width = htmlObj.parentNode.parentElement.clientWidth + 'px';
             customWidthProperty.style.display = "none";
-        }else {
+        } else {
+            htmlObj.style.width = "100%";
             customWidthProperty.style.display = "block";
         }
 
@@ -89,12 +93,16 @@
         var height = heightProperty.value;
         xmlObj.layout_height = height;
 
-        if(height == "wrap_content"){
+        if (height == "wrap_content") {
             customHeightProperty.style.display = "none";
-        }else if(height == "match_parent"){
+            htmlObj.style.height = "";
+            htmlObj.style.display = "inline-block";
+        } else if (height == "match_parent") {
+            htmlObj.style.height = "100%";
             htmlObjParent.style.height = htmlObj.parentNode.parentElement.clientHeight + 'px';
             customHeightProperty.style.display = "none";
-        }else {
+        } else {
+            htmlObj.style.height = "100%";
             customHeightProperty.style.display = "block";
         }
     }
@@ -105,7 +113,7 @@
         var customWidth = customWidthProperty.value;
         var xmlObj = window.utiles.arr[htmlObj._id];
         xmlObj.layout_width = customWidth;
-        htmlObjParent.style.width =customWidth + 'px';
+        htmlObjParent.style.width = customWidth + 'px';
     }
 
     function customHeightChange() {
@@ -114,7 +122,27 @@
         var customHeight = customHeightProperty.value;
         var xmlObj = window.utiles.arr[htmlObj._id];
         xmlObj.layout_height = customHeight;
-        htmlObjParent.style.height =customHeight + 'px';
+        htmlObjParent.style.height = customHeight + 'px';
+    }
+
+    function calculateHeightMatchParent() {
+        var htmlObj = window.curruntlyHtmlObjectSelected;
+        var htmlObjParent = htmlObj.parentNode.parentElement;
+        var parentHeight = htmlObjParent.getBoundingClientRect().height;
+        var htmlObjTop = htmlObj.getBoundingClientRect().top;
+        var htmlObjarentTop = htmlObjParent.getBoundingClientRect().top;
+        var expectedHeight = parentHeight - (htmlObjarentTop - htmlObjTop);
+        return expectedObjHeight;
+    }
+
+    function calculateWidthMatchParent() {
+        var htmlObj = window.curruntlyHtmlObjectSelected;
+        var htmlObjParent = htmlObj.parentNode.parentElement;
+        var parentWidth = htmlObjParent.getBoundingClientRect().width;
+        var htmlObjleft = htmlObj.getBoundingClientRect().left;
+        var htmlObjParentLeft = htmlObjParent.getBoundingClientRect().left;
+        var expectedObjWidth = parentHeight - (htmlObjarentTop - htmlObjTop);
+        return expectedObjWidth;
     }
 
 
@@ -203,13 +231,13 @@
         var visibilityValue = visibility.value;
         var xmlObj = window.utiles.arr[htmlObj._id];
         xmlObj.visibility = visibilityValue;
-        if(visibilityValue == "visible"){
+        if (visibilityValue == "visible") {
             htmlObjParent.style.display = "block";
             htmlObjParent.style.visibility = "visible";
-        }else if(visibilityValue == "invisible"){
+        } else if (visibilityValue == "invisible") {
             htmlObjParent.style.visibility = "hidden";
-        }else{
-            htmlObjParent.style.display="none";
+        } else {
+            htmlObjParent.style.display = "none";
         }
     }
 
