@@ -23,9 +23,11 @@
     }
 
     function selectItem(HtmlObj) {
-        window.curruntlyHtmlObjectSelected = HtmlObj;
+        var oldHtmlObj = window.curruntlyHtmlObjectSelected;
+        if(oldHtmlObj) oldHtmlObj.style.border = "none";
 
-        // HtmlObj.style.border = "thin solid #0000FF";
+        window.curruntlyHtmlObjectSelected = HtmlObj;
+        HtmlObj.style.border = "thin dashed #0000FF";
         updatePropertiesView(HtmlObj);
         var foundXMLObject = window.utiles.arr[HtmlObj._id];
         if(!foundXMLObject){

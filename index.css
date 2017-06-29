@@ -26,12 +26,12 @@ div#ComponentContainer #ListViewComponent {
     background: rgba(247, 255, 50, 0.51);
 }
 
-div ul.WorkspaceContainer ul, div ul#ListviewContainer ul {
+div ul.WorkspaceContainer ul, div ul#ListviewContainer ul{
     padding: 0px;
     margin: 0px;
 }
 
-div ul.WorkspaceContainer li {
+div ul.WorkspaceContainer li{
     /*list-style: none;*/
     list-style-type: none;
     padding: 0px;
@@ -622,4 +622,8 @@ ul {
 #funName {
     margin: 5px;
     text-align: center;
+}
+
+#custom_layout_width, #custom_layout_height{
+    display: none;
 }

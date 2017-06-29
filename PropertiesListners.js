@@ -4,6 +4,8 @@
 (function () {
     var widthProperty = document.getElementById("layout_width");
     var heightProperty = document.getElementById("layout_height");
+    var customWidthProperty = document.getElementById("custom_layout_width");
+    var customHeightProperty = document.getElementById("custom_layout_height");
 
     var marginTop = document.getElementById("margin_top");
     var marginLeft = document.getElementById("margin_left");
@@ -41,6 +43,8 @@
 
     widthProperty.addEventListener("change", changeObjWidth, false);
     heightProperty.addEventListener("change", changeObjHeight, false);
+    customWidthProperty.addEventListener('input', customWidthChange);
+    customHeightProperty.addEventListener('input', customHeightChange);
 
     //Margin input listners
     marginTop.addEventListener('input', marginTopChange);
@@ -64,16 +68,54 @@
         var htmlObj = window.curruntlyHtmlObjectSelected;
         var htmlObjParent = htmlObj.parentNode;
         var xmlObj = window.utiles.arr[htmlObj._id];
-        xmlObj.layout_width = widthProperty.value;
-        htmlObjParent.style.width = htmlObj.parentNode.parentElement.clientWidth + 'px';
+        var width =  widthProperty.value;
+        xmlObj.layout_width =  width;
+
+        if(width == "wrap_content"){
+            customWidthProperty.style.display = "none";
+            htmlObj.style.display = "inline-block";
+        }else if(width == "match_parent"){
+            htmlObjParent.style.width = htmlObj.parentNode.parentElement.clientWidth + 'px';
+            customWidthProperty.style.display = "none";
+        }else {
+            customWidthProperty.style.display = "block";
+        }
+
     }
 
     function changeObjHeight() {
         var htmlObj = window.curruntlyHtmlObjectSelected;
         var htmlObjParent = htmlObj.parentNode;
         var xmlObj = window.utiles.arr[htmlObj._id];
-        xmlObj.layout_height = heightProperty.value;
-        htmlObjParent.style.height = htmlObj.parentNode.parentElement.clientHeight + 'px';
+        var height = heightProperty.value;
+        xmlObj.layout_height = height;
+
+        if(height == "wrap_content"){
+            customHeightProperty.style.display = "none";
+        }else if(height == "match_parent"){
+            htmlObjParent.style.height = htmlObj.parentNode.parentElement.clientHeight + 'px';
+            customHeightProperty.style.display = "none";
+        }else {
+            customHeightProperty.style.display = "block";
+        }
+    }
+
+    function customWidthChange() {
+        var htmlObj = window.curruntlyHtmlObjectSelected;
+        var htmlObjParent = htmlObj.parentNode;
+        var customWidth = customWidthProperty.value;
+        var xmlObj = window.utiles.arr[htmlObj._id];
+        xmlObj.layout_width = customWidth;
+        htmlObjParent.style.width =customWidth + 'px';
+    }
+
+    function customHeightChange() {
+        var htmlObj = window.curruntlyHtmlObjectSelected;
+        var htmlObjParent = htmlObj.parentNode;
+        var customHeight = customHeightProperty.value;
+        var xmlObj = window.utiles.arr[htmlObj._id];
+        xmlObj.layout_height = customHeight;
+        htmlObjParent.style.height =customHeight + 'px';
     }
 
 

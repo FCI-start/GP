@@ -41,7 +41,7 @@
         this.arr[id].paddingButton = 0;
         this.arr[id].paddingRight = 0;
         this.arr[id].visibility = "visible";
-        this.arr[id].background = "#FFFFFF";
+        this.arr[id].background = "#bbbbbb";
         this.arr[id].onClick = "none";
 
 
@@ -75,6 +75,8 @@
         var idProperty = document.getElementById("id_text");
         var widthProperty = document.getElementById("layout_width");
         var heightProperty = document.getElementById("layout_height");
+        var customWidthProperty = document.getElementById("custom_layout_width");
+        var customHeightProperty = document.getElementById("custom_layout_height");
 
         var marginTop = document.getElementById("margin_top");
         var marginLeft = document.getElementById("margin_left");
@@ -114,9 +116,23 @@
 
         // fill basic properties from xml object to right side properties
         idProperty.value = object._id;
-        console.log(xmlObject.layout_width);
-        widthProperty.value = xmlObject.layout_width;
-        heightProperty.value = xmlObject.layout_height;
+        if(xmlObject.layout_width != "wrap_content" && xmlObject.layout_width != "match_parent"){
+            customWidthProperty.style.display ="block";
+            customWidthProperty.value = xmlObject.layout_width;
+            widthProperty.value = "custom";
+        }else{
+            customWidthProperty.style.display ="none";
+            widthProperty.value = xmlObject.layout_width;
+        }
+
+        if(xmlObject.layout_height != "wrap_content" && xmlObject.layout_height != "match_parent"){
+            customHeightProperty.style.display ="block";
+            customHeightProperty.value = xmlObject.layout_height;
+            heightProperty.value = "custom";
+        }else{
+            customHeightProperty.style.display ="none";
+            heightProperty.value = xmlObject.layout_height;
+        }
 
         marginTop.value = xmlObject.layout_marginTop;
         marginLeft.value = xmlObject.layout_marginLeft;

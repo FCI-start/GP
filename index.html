@@ -107,11 +107,20 @@
                     <label for="layout_width">layout_width</label>
                 </td>
                 <td>
-                    <select name="layout_width" id="layout_width">
-                        <option class="default" value="wrap_content">wrap_content</option>
-                        <option value="match_parent" selected>match_parent</option>
-                        <option value="custom">custom</option>
-                    </select>
+                    <table class="margin_padding_row">
+                        <tr>
+                            <td style="min-width: 75px">
+                                <select name="layout_width" id="layout_width">
+                                    <option class="default" value="wrap_content">wrap_content</option>
+                                    <option value="match_parent" selected>match_parent</option>
+                                    <option value="custom">custom</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" id="custom_layout_width" value="0">
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
 
@@ -120,11 +129,20 @@
                     <label for="layout_height">layout_height</label>
                 </td>
                 <td>
-                    <select name="layout_height" id="layout_height">
-                        <option class="default" value="wrap_content" selected>wrap_content</option>
-                        <option value="match_parent">match_parent</option>
-                        <option value="custom">custom</option>
-                    </select>
+                    <table class="margin_padding_row">
+                        <tr>
+                            <td style="min-width: 75px">
+                                <select name="layout_height" id="layout_height">
+                                    <option class="default" value="wrap_content" selected>wrap_content</option>
+                                    <option value="match_parent">match_parent</option>
+                                    <option value="custom">custom</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" id="custom_layout_height" value="0">
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
 
