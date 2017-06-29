@@ -277,11 +277,8 @@
 
         var strContent = '';
 
-        activities[activityId].members.push({
-            access: 'private',
-            type: listviewId + 'Adapter',
-            id: 'm' + listviewId + 'Adapter'
-        });
+        activities[activityId].members['m' + listviewId + 'Adapter'] = listviewId + 'Adapter';
+
 
         strContent += '\n\t' + listviewId + '.setLayoutManager(new LinearLayoutManager(getApplicationContext()));';
         strContent += '\n\tm' + listviewId + 'Adapter = new ' + listviewId + 'Adapter(new ArrayList<' + listType + '>());';
@@ -453,12 +450,12 @@
             delete holder.members[viewId];
             for (var j = 0; j < holder.constructor.length; j++) {
                 if (holder.constructor[j].indexOf(viewId) !== -1) {
-                    holder.constructor[j].splice(j, 1);
+                    holder.constructor.splice(j, 1);
                     break;
                 }
             }
         } else {
-            activities[activityId].functions['onCreate'].content.replace('\n\t' + viewId + '=(' + activities[activityId].members[viewId] + ') findViewById(R.id.' + viewId + ');','');
+            activities[activityId].functions['onCreate'].content = activities[activityId].functions['onCreate'].content.replace('\n\t' + viewId + '=(' + activities[activityId].members[viewId] + ') findViewById(R.id.' + viewId + ');', '');
             delete activities[activityId].members[viewId];
 
         }

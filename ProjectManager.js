@@ -115,7 +115,7 @@
         var allFiles = {};
         var models = window.NetworkHandler.printModelsInterfaces();
         for (var i in models) {
-            allFiles[i] = models;
+            allFiles[i] = models[i];
         }
         var activities = window.JavaGenerator.printJavaActivities();
         for (var i in activities) {
@@ -127,6 +127,9 @@
             allFiles[i] = xmls[i];
         }
         console.log(allFiles);
+
+
+       console.log(JSON.stringify(allFiles));
     }
 
     function removeElement(viewId) {
@@ -135,10 +138,11 @@
         if (cur.id.indexOf('RecyclerView') !== -1) {
             activityId = cur.parentActivity;
             recyclerId = cur.id;
+            window.tree.removeView(recyclerId, viewId);
         } else {
             activityId = cur.id;
+            window.tree.removeView(activityId, viewId);
         }
-        window.tree.removeView(activityId, viewId);
         window.JavaGenerator.removeMember(activityId, viewId, recyclerId);
     }
 
