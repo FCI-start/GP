@@ -77,14 +77,13 @@
             htmlObj.style.display = "inline-block";
         } else if (width == "match_parent") {
             htmlObj.style.width = "100%";
-            htmlObjParent.style.width = htmlObj.parentNode.parentElement.clientWidth + 'px';
             customWidthProperty.style.display = "none";
+            htmlObj.style.width = calculateWidthMatchParent() + 'px';
+            htmlObjParent.style.width = htmlObj.style.width;
         } else {
             htmlObj.style.width = "100%";
             customWidthProperty.style.display = "block";
         }
-
-        calculateWidthMatchParent();
     }
 
     function changeObjHeight() {
@@ -101,13 +100,13 @@
             htmlObj.style.display = "inline-block";
         } else if (height == "match_parent") {
             htmlObj.style.height = "100%";
-            htmlObjParent.style.height = htmlObj.parentNode.parentElement.clientWidth + 'px';
+            htmlObj.style.height = calculateHeightMatchParent() + 'px';
+            htmlObjParent.style.height = htmlObj.style.height;
             customHeightProperty.style.display = "none";
         } else {
             htmlObj.style.height = "100%";
             customHeightProperty.style.display = "block";
         }
-        calculateHeightMatchParent();
     }
 
     function customWidthChange() {
@@ -128,30 +127,34 @@
         htmlObjParent.style.height = customHeight + 'px';
     }
 
-    function calculateHeightMatchParent() {
-        var htmlObj = window.curruntlyHtmlObjectSelected;
-        var htmlObjParent = htmlObj.parentNode.parentNode;
-        var parentBottom = htmlObjParent.offsetTop + htmlObjParent.offsetHeight;
-        var htmlObjBottom = htmlObj.offsetTop + htmlObj.offsetHeight;
-        var diff = htmlObjBottom - parentBottom;
-        console.log(diff);
-
-        if (diff > 0) {
-            htmlObj.style.height = htmlObj.offsetHeight - diff +  'px';
-        }
-    }
-
     function calculateWidthMatchParent() {
         var htmlObj = window.curruntlyHtmlObjectSelected;
         var htmlObjParent = htmlObj.parentNode.parentNode;
-        var parentRight = htmlObjParent.offsetLeft + htmlObjParent.offsetWidth;
-        var htmlObjRight = htmlObj.offsetLeft + htmlObj.offsetWidth;
-        var diff = htmlObjRight - parentRight;
-        console.log(diff);
+        var objRect = htmlObj.getBoundingClientRect();
+        var parentRect = htmlObjParent.getBoundingClientRect();
 
-        if (diff > 0) {
-            htmlObj.style.width = htmlObj.offsetWidth - diff +  'px';
+        var parentRight = parentRect.left + parentRect.width;
+        var diff = parentRight - objRect.left;
+        if (diff > 0) {// parent is larger than its child
+            // htmlObj.style.width = htmlObj.offsetWidth - diff + 'px';
+            return diff;
         }
+        return 0;
+    }
+
+    function calculateHeightMatchParent() {
+        var htmlObj = window.curruntlyHtmlObjectSelected;
+        var htmlObjParent = htmlObj.parentNode.parentNode;
+        var objRect = htmlObj.getBoundingClientRect();
+        var parentRect = htmlObjParent.getBoundingClientRect();
+
+        var parentBottom = parentRect.top + parentRect.height;
+        var diff = parentBottom - objRect.top;
+        if (diff > 0) {// parent is larger than its child
+            // htmlObj.style.width = htmlObj.offsetWidth - diff + 'px';
+            return diff;
+        }
+        return 0;
     }
 
 
