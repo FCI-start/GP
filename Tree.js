@@ -103,6 +103,23 @@ function loadTree() {
             out += '\n</' + window.utiles.arr[node.data].type + '>\n';
             return out;
         };
+
+        var getAtributies = function (node, list) {
+            if (node == undefined)return;
+            if (node.child)
+                for (var i = 0; i < node.child.length; i++) {
+                    getAtributies(node.child[i],list);
+                }
+            list.push(window.utiles.arr[node.data]);
+        };
+
+        this.getAllAtributes = function () {
+            var list = [];
+            for (var r in this.root) {
+                getAtributies(this.root[r], list);
+            }
+            return list;
+        };
     }
 
 

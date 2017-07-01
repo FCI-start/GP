@@ -1,0 +1,26 @@
+{
+  "name": "android-maker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FCI-start/GP.git"
+  },
+  "keywords": [
+    "android",
+    "apps"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FCI-start/GP/issues"
+  },
+  "homepage": "https://github.com/FCI-start/GP#readme",
+  "dependencies": {
+    "mysql": "^2.13.0"
+  }
+}

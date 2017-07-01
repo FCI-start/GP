@@ -201,7 +201,7 @@
             var line = holder.constructor[i];
             res += '\n\t\t' + line;
         }
-        res += '\n\t}';
+        res += '\nitemView.setOnClickListener(this);\n\t}';
 
 
         res += '\n\tpublic void bindData(' + holder.members['mObject'] + ' object){\n';
@@ -498,10 +498,14 @@
 
     }
 
+    function getActivitiesObject() {
+        return activities;
+    }
+
 
     window.JavaGenerator = window.JavaGenerator || {};
     window.JavaGenerator.printJavaActivity = printJavaActivity;
-    window.JavaGenerator.printJavaActivities = printJavaActivities;
+    window.JavaGenerator.tivities = printJavaActivities;
     window.JavaGenerator.addMember = addMember;
     window.JavaGenerator.generateDefaultJaveActivity = generateDefaultJaveActivity;
     window.JavaGenerator.createListViewHolderAndAdapter = createListViewHolderAndAdapter;
@@ -518,5 +522,6 @@
     window.JavaGenerator.getActivitiesNames = getActivitiesNames;
     window.JavaGenerator.removeMember = removeMember;
     window.JavaGenerator.renderDetailActivity = renderDetailActivity;
+    window.JavaGenerator.getActivitiesObject = getActivitiesObject;
 
 })();
