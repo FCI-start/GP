@@ -6,7 +6,7 @@
 var configs = {};
 var resultObj = undefined;
 var classes = ['', 'custom-checked', 'custom-unchecked', 'custom-indeterminate'];
-
+var detailBindObj = {};
 
 function saveConfigs() {
 
@@ -100,6 +100,7 @@ function saveConfigs() {
     var activity = window.ProjectManager.getCurrentActivy();
     var listViewId = activity.id;
     var activityId = activity.parentActivity;
+    var detailSelActivity = document.getElementById('detailActivity');
 
 
     if (/*!validateURL(strUrl) || checkPath(strPath).length > 1 ||*/ !resultObj) {
@@ -151,6 +152,11 @@ function saveConfigs() {
     var type = strListObjectPath.length > 0 ? listViewId + 'Model.' + strListObjectPath : listViewId + 'Model';
     window.JavaGenerator.addModelTypeToHolder(activityId, listViewId, type);
 
+    if (detailSelActivity.value != 'none') {
+        window.JavaGenerator.renderDetailActivity(detailSelActivity.value, listViewId, detailBindObj, type);
+    }
+
+
 }
 
 
@@ -169,6 +175,7 @@ function toggle_config_visibility(id, isSave) {
     else {
         e.style.display = 'block';
         jsonInput(document.getElementById('jsonEx'));
+        showSelectDetailActivity();
     }
 }
 
@@ -330,7 +337,7 @@ function JsonToJavaObject(strJson) {
 
 //convert intermediate object to string java code
 function getStringClass(javaObject, class_name, tapes) {
-    var res = tapes + 'public class ' + class_name + ' {\n';
+    var res = tapes + 'public class ' + class_name + ' implements Serializable {\n';
     for (var m in  javaObject.members) {
         var ob = javaObject.members[m];
         res += tapes + '\tpublic ' + ob.type + ' ' + m + ';\n';
@@ -417,9 +424,38 @@ function jsonInput(TA) {
 
 }
 
+function showSelectDetailActivity() {
+    var detailSel = document.getElementById('detailActivity');
+    clear(detailSel);
+
+    var list = window.JavaGenerator.getActivitiesNames();
+    list.push(list[0]);
+    list[0] = 'none';
+    var activityId = window.ProjectManager.getCurrentActivy().parentActivity;
+    for (var i = 0; i < list.length; i++) {
+        var ob = document.createElement('option');
+        if (list[i] !== activityId) {
+            ob.value = list[i];
+            ob.innerHTML = list[i];
+            detailSel.appendChild(ob);
+        }
+    }
+}
+
+function clear(node) {
+    while (node.hasChildNodes()) {
+        node.removeChild(node.lastChild);
+    }
+}
+
+
+function selectDetailActivity(ele) {
+    jsonInput(document.getElementById('jsonEx'));
+}
+
 
 function createHtmlTree(javaObject, ulRoot, PATH) {
-
+    detailBindObj = {};
     createHtmlObject(ulRoot, javaObject, '');
 
     function createHtmlObject(ul, javaObj, path) {
@@ -448,17 +484,32 @@ function createHtmlTree(javaObject, ulRoot, PATH) {
         var inp = li.getElementsByTagName('input')[0];
         var lbl = li.getElementsByTagName('label')[0];
         var binw = li.getElementsByClassName('bindWithDev')[0];
+        var detailBinWith = li.getElementsByClassName('detailBindWith')[0];
         var selc = binw.getElementsByClassName('bindWithSel')[0];
+        var detailSelect = detailBinWith.getElementsByClassName('detailBindWithSel')[0];
         var listView = window.ProjectManager.getCurrentActivy().id;
         var activityId = window.ProjectManager.getCurrentActivy().parentActivity;
+
+
+        var detailSelActivity = document.getElementById('detailActivity');
+
 
         selc.addEventListener('click', function () {
             if (selc.value !== 'none') {
                 window.JavaGenerator.bindMember(activityId, listView, selc.value, path + id);
-                console.log(path + id);
+                //console.log(path + id);
             }
 
         }, false);
+
+        detailSelect.addEventListener('click', function () {
+            if (detailSelect.value !== 'none' && detailSelActivity.value != 'none') {
+                detailBindObj[detailSelect.value] = path + id;
+                //window.JavaGenerator.renderDetailActivity(activityId, listView, selc.value, path + id);
+                //console.log(path + id);
+            }
+        }, false);
+
 
         inp.name = id + 'input';
         inp.id = id + 'input';
@@ -468,6 +519,7 @@ function createHtmlTree(javaObject, ulRoot, PATH) {
         selc.id = id + 'select';
         if (type.startsWith('List') || type.endsWith('Bean') || !show) {
             li.removeChild(binw);
+            li.removeChild(detailBinWith);
         }
         else {
 
@@ -479,7 +531,18 @@ function createHtmlTree(javaObject, ulRoot, PATH) {
                 op.value = i;
                 op.innerHTML = i;
                 selc.appendChild(op);
+            }
 
+            if (detailSelActivity.value === 'none')
+                detailBinWith.style.display = 'none';
+            else {
+                var detailmems = window.JavaGenerator.getActivityMembers(detailSelActivity.value);
+                for (var i  in detailmems) {
+                    var op = document.createElement('option');
+                    op.value = i;
+                    op.innerHTML = i;
+                    detailSelect.appendChild(op);
+                }
             }
 
         }

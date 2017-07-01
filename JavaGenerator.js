@@ -45,7 +45,14 @@
                     name: 'onStop',
                     params: [],
                     content: '\tsuper.onStop();\n'
+                }, 'setImage': {
+                    access: 'private',
+                    sig: 'void',
+                    name: 'setImage',
+                    params: ['ImageView', 'String'],
+                    content: 'Picasso.with(getApplicationContext()).load(param2).into(param1);'
                 }
+
             }
             , objects: []
 
@@ -338,13 +345,6 @@
             content: strContent
         };
 
-        activities[activityId].functions['setImage'] = {
-            access: 'private',
-            sig: 'void',
-            name: 'setImage',
-            params: ['ImageView', 'String'],
-            content: 'Picasso.with(getApplicationContext()).load(param2).into(param1);'
-        };
 
         if (activities[activityId].functions['onCreate'].content.indexOf('render' + listviewId + '();') === -1)
             activities[activityId].functions['onCreate'].content += '\n\t\trender' + listviewId + '();\n';
@@ -428,7 +428,7 @@
         var mems = activities[activityId].members;
         var mbs = {};
         for (var i in mems) {
-            if (mems[i] !== 'RecyclerView' && mems[i] !== 'ImageView') {
+            if (mems[i] !== 'RecyclerView' && mems[i] !== 'LinearLayout') {
                 mbs[i] = mems[i];
             }
         }
@@ -461,6 +461,43 @@
         }
     }
 
+    function renderDetailActivity(activityId, recyclerId, bindObj, objectType) {
+        var act = window.ProjectManager.getCurrentActivy().parentActivity;
+        activities[act].objects[recyclerId + 'Holder'].onClick.gotoActivity = activityId.toUpperCase();
+
+        funs = activities[activityId].functions;
+
+        //if(!funs['renderItem'+recyclerId]){
+        funs['renderItem' + recyclerId] = {
+            isOverride: false,
+            access: 'private',
+            sig: 'void',
+            name: 'renderItem' + recyclerId,
+            params: [],
+            content: ''
+        }
+        //}
+
+        var strContent = objectType + ' object = (' + objectType + ') getIntent().getSerializableExtra("object");\n' +
+            'if(object != null ){\n';
+        for (var view in bindObj) {
+            var line = '';
+            if (activities[activityId].members[view] === 'ImageView') {
+                line = 'setImage(' + view + ' , object.' + bindObj[view] + ');\n'
+            } else {
+                line = view + '.setText(object.' + bindObj[view] + '+\"\");\n'
+            }
+            strContent += line;
+        }
+        strContent += '}\n'
+
+        funs['renderItem' + recyclerId].content = strContent;
+        activities[activityId].functions['onCreate'].content += 'renderItem' + recyclerId + '();\n';
+        activities[activityId].imports['import com.squareup.picasso.Picasso;'] = true;
+
+
+    }
+
 
     window.JavaGenerator = window.JavaGenerator || {};
     window.JavaGenerator.printJavaActivity = printJavaActivity;
@@ -478,6 +515,8 @@
     window.JavaGenerator.addCodeFunction = addCodeFunction;
     window.JavaGenerator.getAllActionFunctionNames = getAllActionFunctionNames;
     window.JavaGenerator.getActivityMembers = getActivityMembers;
+    window.JavaGenerator.getActivitiesNames = getActivitiesNames;
     window.JavaGenerator.removeMember = removeMember;
+    window.JavaGenerator.renderDetailActivity = renderDetailActivity;
 
 })();

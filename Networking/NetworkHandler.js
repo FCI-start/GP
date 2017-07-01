@@ -26,7 +26,7 @@ function createInterface(listViewId, method) {
 }
 
 function setModel(modelId, strModel) {
-    models[modelId] = 'import java.util.List;\n' + strModel;
+    models[modelId] = 'import java.util.List;\nimport java.io.Serializable;\n' + strModel;
 }
 
 function printModelsInterfaces() {

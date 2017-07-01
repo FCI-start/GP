@@ -459,11 +459,19 @@
                     <label class="custom-checked" onclick="checkBoxChanged(this)">
                     </label>
                     <div class="bindWithDev">
-                        Bind with:
+                        Item Bind with:
                         <select class="bindWithSel">
                             <option value="none">none</option>
                         </select>
                     </div>
+
+                    <div class="detailBindWith">
+                        Detail Activity with:
+                        <select class="detailBindWithSel">
+                            <option value="none">none</option>
+                        </select>
+                    </div>
+
                 </li>
             </div>
 
@@ -513,6 +521,10 @@
                 <!--<input type="radio" name="list" >-->
             </div>
 
+            <div>
+                Detail activity:
+                <select id="detailActivity" onclick="selectDetailActivity(this)"> </select>
+            </div>
             <ul class="treeview">
             </ul>
 

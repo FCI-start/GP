@@ -15,7 +15,6 @@ div#ComponentContainer {
     /*sasdsad*/
 }
 
-
 div#ComponentContainer #LinearLayout, div#ComponentContainer #ListViewComponent {
     width: 80px;
     height: 35px;
@@ -30,12 +29,12 @@ div#ComponentContainer #ListViewComponent {
     background: rgba(247, 255, 50, 0.51);
 }
 
-div ul.WorkspaceContainer ul, div ul#ListviewContainer ul{
+div ul.WorkspaceContainer ul, div ul#ListviewContainer ul {
     padding: 0px;
     margin: 0px;
 }
 
-div ul.WorkspaceContainer li{
+div ul.WorkspaceContainer li {
     /*list-style: none;*/
     list-style-type: none;
     padding: 0px;
@@ -142,9 +141,8 @@ div#ComponentContainer table {
     width: 90%;
 }
 
-div#ComponentContainer #ComponentTable tr td
-{
-    display:block;
+div#ComponentContainer #ComponentTable tr td {
+    display: block;
     float: left;
     width: 45%;
 }
@@ -631,6 +629,19 @@ ul {
     text-align: center;
 }
 
-#custom_layout_width, #custom_layout_height{
+#custom_layout_width, #custom_layout_height {
     display: none;
+}
+
+.detailBindWith {
+    width: 100%;
+    font-size: 12px;
+    margin-left: 30px;
+    color: #ff0062;
+    margin-bottom: 2px;
+}
+
+.detailBindWithSel{
+    font-size: 11px;
+
 }
