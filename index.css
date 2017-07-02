@@ -7,18 +7,17 @@
 }
 
 div#ComponentContainer {
-    width: 21%;
-    height: 500px;
-    border: 1px solid black;
-    padding: 10px;
+    width: 100%;
+    height: 673px;
+    border: 1px solid #ddd;
+    padding: 30px 0 10px 10px;
     float: left;
-    /*sasdsad*/
 }
 
 div#ComponentContainer #LinearLayout, div#ComponentContainer #ListViewComponent {
-    width: 80px;
+    width: 80%;
     height: 35px;
-    border: 1px solid gray;
+    border: 1px solid #ddd;
     position: absolute;
     background: rgba(190, 255, 241, 0.51);
     padding: 0px;
@@ -40,14 +39,14 @@ div ul.WorkspaceContainer li {
     padding: 0px;
     margin: 0px;
     display: block;
-}
+    width: 100%;
+    height: 100%;
+    }
 
 div#mobielDev {
-    width: 50%;
-    height: 520px;
-    border: 1px solid black;
-    margin-left: 5px;
-    float: left;
+position: absolute;
+    top:70px;
+    left: 16px;
 }
 
 div ul.WorkspaceContainer, div ul#ListviewContainer {
@@ -136,49 +135,58 @@ div.popup #close:hover, div.listviewpopup #listviewclose:hover {
 }
 
 div#ComponentContainer table {
-    padding: 5px;
+    padding: 20px;
     margin: 0 auto;
-    width: 90%;
+    width: 100%;
 }
 
 div#ComponentContainer #ComponentTable tr td {
     display: block;
     float: left;
-    width: 45%;
+    width: 100%;
 }
 
 div#ComponentContainer div {
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     float: left;
-    height: 40px;
+    height: 60px;
 }
 
 div#ComponentContainer div#divtextview label {
     display: block;
-    width: 80px;
+    width: 80%;
     text-align: center;
     height: 35px;
     border: 1px solid #ddd9cb;
+    text-transform: uppercase;
 }
 
 div#ComponentContainer div#divButton button, div ul.WorkspaceContainer li button {
-    width: 80px;
+    width: 80%;
     height: 35px;
     margin: 0 auto;
+    background: #4285F4;
+    text-transform: uppercase;
+    border: none;
+color:#fff;
+    box-shadow: 1px 1px 2px rgba(0,0,0,.1   );
 }
 
 div#ComponentContainer div#divedittext input {
-    width: 80px;
+    width: 80%;
     height: 35px;
 }
 
 div#ComponentContainer div#divimageview div {
-    border: solid 1px #000;
-    width: 80px;
+    border: solid 1px #ddd;
+    width: 80%;
     height: 35px;
-    text-align: center;
     padding: 0px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #777;
+
 }
 
 /*Right hand side properties*/
@@ -230,6 +238,7 @@ div#ComponentContainer div#divimageview div {
     font-family: "Britannic Bold";
     text-align: center;
     font-weight: bold;
+    font-size: 1.5em;
 }
 
 #right_div .property_div {

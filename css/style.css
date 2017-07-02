@@ -1,0 +1,51 @@
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track */
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #ddd;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #ddd;
+}
+
+body{
+    background: #360033; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #360033, #0b8793); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #360033, #0b8793); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-family: 'Slabo 27px', serif;
+    /*font-family: 'Merriweather', serif;*/
+}
+#Login{
+}
+h3{
+    text-transform: uppercase;
+}
+form{
+    /*background-color: rgba(0,0,0,.3);*/
+    /*color:#fff;*/
+    margin:6rem 0px;
+padding: 50px;
+}
+
+
+
+
+
+
+
+
+
