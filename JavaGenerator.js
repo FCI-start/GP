@@ -9,7 +9,11 @@
 (function () {
     var activities = {};
 
-
+    /**
+     * this function is called when new activity is created
+     * to generate default java activity class code
+     * @param activity_name
+     */
     function generateDefaultJaveActivity(activity_name) {
         activities[activity_name] = {
             package: 'package com.androidmaker.usernanme.projectname;',
@@ -45,7 +49,8 @@
                     name: 'onStop',
                     params: [],
                     content: '\tsuper.onStop();\n'
-                }, 'setImage': {
+                },
+                'setImage': {
                     access: 'private',
                     sig: 'void',
                     name: 'setImage',
@@ -505,7 +510,7 @@
 
     window.JavaGenerator = window.JavaGenerator || {};
     window.JavaGenerator.printJavaActivity = printJavaActivity;
-    window.JavaGenerator.tivities = printJavaActivities;
+    window.JavaGenerator.printJavaActivities = printJavaActivities;
     window.JavaGenerator.addMember = addMember;
     window.JavaGenerator.generateDefaultJaveActivity = generateDefaultJaveActivity;
     window.JavaGenerator.createListViewHolderAndAdapter = createListViewHolderAndAdapter;

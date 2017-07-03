@@ -231,6 +231,13 @@ function dynamicPath(pathInput) {
 
 
 //convert json text into intermediate object
+/**
+ * parse json string and convert it to be
+ * in form of members object and objects object
+ * for non primitive data types
+ * @param {String} strJson
+ * @return {Object} parsed object
+ */
 function JsonToJavaObject(strJson) {
     var isJsonArray = 0;
     var JavaObject = createEmptyJObject();
@@ -293,13 +300,21 @@ function JsonToJavaObject(strJson) {
         return name.charAt(0).toUpperCase() + name.substr(1) + 'Bean';
     }
 
-    function getObjectJava(object, javaObject) {
+    /**
+     * convert parsed json string it to be
+     * in form of members object and objects object
+     * for non primitive data types
+     * @param parsedJson
+     * @param javaObject
+     * @returns {javaObject}
+     */
+    function getObjectJava(parsedJson, javaObject) {
 
-        for (var i in object) {
-            if (isArray(object[i])) {
+        for (var i in parsedJson) {
+            if (isArray(parsedJson[i])) {
 
                 var listL = '', listR = '';
-                var listobj = object[i];
+                var listobj = parsedJson[i];
                 while (isArray(listobj)) {
                     listL += 'List< ';
                     listR += ' >';
@@ -314,12 +329,12 @@ function JsonToJavaObject(strJson) {
                 }
 
 
-            } else if (isObject(object[i])) {
+            } else if (isObject(parsedJson[i])) {
                 javaObject.members[i] = {type: createClassName(i), Object: createClassName(i)};
-                javaObject.objects[createClassName(i)] = getObjectJava(object[i], createEmptyJObject());
+                javaObject.objects[createClassName(i)] = getObjectJava(parsedJson[i], createEmptyJObject());
 
             } else {
-                javaObject.members[i] = {type: getType(object[i]), Object: getType(object[i])};
+                javaObject.members[i] = {type: getType(parsedJson[i]), Object: getType(parsedJson[i])};
 
             }
         }
@@ -329,13 +344,18 @@ function JsonToJavaObject(strJson) {
 
     getObjectJava(js, JavaObject);
 
-    //var stringJavaObjectCode = getStringClass(JavaObject, 'Model', '');
-
     return {obj: JavaObject, isList: isJsonArray};
 }
 
 
 //convert intermediate object to string java code
+/**
+ * convert javaObject to string java class model
+ * @param javaObject
+ * @param class_name
+ * @param tapes
+ * @returns {string}
+ */
 function getStringClass(javaObject, class_name, tapes) {
     var res = tapes + 'public class ' + class_name + ' implements Serializable {\n';
     for (var m in  javaObject.members) {
